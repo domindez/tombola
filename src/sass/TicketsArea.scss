@@ -1,5 +1,9 @@
-.tickets-area{
-  width: 100%;
-  display: grid;
-  gap: 10px
+.tickets-area {
+	width: 100%;
+	padding: 20px;
+	gap: 10px;
+	display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  justify-content: space-evenly;
+
 }
