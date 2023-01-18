@@ -3,7 +3,14 @@
 	padding: 20px;
 	gap: 10px;
 	display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  justify-content: space-evenly;
+	grid-template-columns: 25% 25% 25% 25%;
+	justify-content: space-evenly;
 
+	@media (min-width: 700px) {
+		grid-template-columns: 20% 20% 20% 20% 20%;
+	}
+
+	@media (min-width: 1000px) {
+		grid-template-columns: 12% 12% 12% 12% 12% 12% 12% 12%;
+	}
 }
