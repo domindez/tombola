@@ -2,16 +2,16 @@ import React from 'react'
 import '../sass/Header.scss'
 
 interface Props {
-	barName: string
+	bar: string
 }
 
-const Header = ({ barName }: Props) => {
+const Header = ({ bar }: Props) => {
 	return (
 		<>
 			<div className='header'>
 				<h1>
-					La Rifa
-					<span className='header__small'>de {barName}</span>
+					Tómbola
+					<span className='header__small'>en {bar}</span>
 				</h1>
 			</div>
 		</>

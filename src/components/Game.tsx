@@ -1,16 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../sass/Game.scss'
 import CodeForm from './CodeForm'
 import Loading from './Loading'
 import TicketsArea from './TicketsArea'
 
 interface Props {
-	barName: string
+	bar: string
 }
 
-const Game = ({ barName }: Props) => {
+const Game = ({ bar }: Props) => {
+	const [cupons, setCupons] = useState([])
 	const [code, setCode] = useState('')
 	const [loading, setLoading] = useState(false)
+
+	useEffect(() => {
+		localStorage.getItem(`tombola-${bar}-ID`) ??
+			localStorage.setItem(`tombola-${bar}-ID`, String(new Date().getTime()))
+	}, [])
 
 	const sendCode = async (e: React.FormEvent<HTMLFormElement>) => {
 		setLoading(true)
@@ -20,12 +26,11 @@ const Game = ({ barName }: Props) => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ code, barName }),
+			body: JSON.stringify({ code, bar }),
 		})
 
 		const data = await response.json()
 		setCode('')
-		console.log(code)
 
 		console.log('data :>> ', data)
 		setLoading(false)
@@ -33,13 +38,9 @@ const Game = ({ barName }: Props) => {
 
 	return (
 		<div className='game-container'>
-			<CodeForm
-				sendCode={(e) => sendCode(e)}
-				setCode={setCode}
-				code={code}
-			/>
-			<Loading loading={loading}/>
-			<TicketsArea />
+			<CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} />
+			<Loading loading={loading} />
+			<TicketsArea cupons={cupons} />
 		</div>
 	)
 }

@@ -2,30 +2,26 @@ import React from 'react'
 import Ticket from './Ticket'
 import '../sass/TicketsArea.scss'
 
-const TicketsArea = () => {
+interface Props {
+	cupons: Array<number>
+}
 
-	
+const TicketsArea = ({ cupons }: Props) => {
+	const PLACEHOLDER_NUM = 20
 
 	return (
 		<div className='tickets-area'>
-			<Ticket ticketNumber={2} />
-			<Ticket ticketNumber={4} />
-			<Ticket ticketNumber={12} />
-			<Ticket ticketNumber={38} />
-			<Ticket ticketNumber={41} />
-			<Ticket ticketNumber={56} />
-			<Ticket ticketNumber={''} />
-			<Ticket ticketNumber={''} />
-			<Ticket ticketNumber={''} />
-			<Ticket ticketNumber={''} />
-			<Ticket ticketNumber={''} />
-			<Ticket ticketNumber={''} />
-			<Ticket ticketNumber={''} />
-			<Ticket ticketNumber={''} />
-			<Ticket ticketNumber={''} />
-			<Ticket ticketNumber={''} />
+			{cupons.length >= PLACEHOLDER_NUM
+				? cupons.map((cupon, index) => {
+					return <Ticket key={index} ticketNumber={cupon} />
+				})
+				: [...cupons, ...Array(PLACEHOLDER_NUM - cupons.length).fill('')].map(
+					(cupon, index) => {
+						return <Ticket key={index} ticketNumber={cupon} />
+					}
+				)}
 		</div>
 	)
 }
-
 export default TicketsArea
+		

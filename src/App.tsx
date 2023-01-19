@@ -6,8 +6,8 @@ import './sass/App.scss'
 function App() {
 	return (
 		<div className='App'>
-			<Header barName='Sala Premier' />
-			<Game barName='Sala Premier'/>
+			<Header bar='Sala Premier' />
+			<Game bar='Sala Premier' />
 		</div>
 	)
 }
