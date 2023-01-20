@@ -1,13 +1,17 @@
 import React from 'react'
-import Game from './components/Game'
-import Header from './components/Header'
+import SalaPremier from './pages/SalaPremier'
+import Test from './pages/Test'
+import { Routes, Route } from 'react-router-dom'
+
 import './sass/App.scss'
 
 function App() {
 	return (
 		<div className='App'>
-			<Header bar='Sala Premier' />
-			<Game bar='Sala Premier' />
+			<Routes>
+				<Route path='/premier' element={<SalaPremier />} />
+				<Route path='/test' element={<Test />} />
+			</Routes>
 		</div>
 	)
 }

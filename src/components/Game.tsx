@@ -8,14 +8,17 @@ interface Props {
 	bar: string
 }
 
+let userID: string | null
+
 const Game = ({ bar }: Props) => {
-	const [cupons, setCupons] = useState([])
+	const [cupons, setCupons] = useState<number[]>([])
 	const [code, setCode] = useState('')
 	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
-		localStorage.getItem(`tombola-${bar}-ID`) ??
-			localStorage.setItem(`tombola-${bar}-ID`, String(new Date().getTime()))
+		localStorage.getItem('tombola-trivify-ID') ?? localStorage.setItem('tombola-trivify-ID', String(new Date().getTime()))
+		userID = localStorage.getItem('tombola-trivify-ID')
+		getTickets(bar, setCupons)
 	}, [])
 
 	const sendCode = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,14 +29,15 @@ const Game = ({ bar }: Props) => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ code, bar }),
+			body: JSON.stringify({ code, bar, userID }),
 		})
 
 		const data = await response.json()
 		setCode('')
-
 		console.log('data :>> ', data)
 		setLoading(false)
+		// setCupons([...cupons, data.number])
+		await getTickets(bar, setCupons)
 	}
 
 	return (
@@ -46,3 +50,16 @@ const Game = ({ bar }: Props) => {
 }
 
 export default Game
+
+async function getTickets(bar: string, setCupons: React.Dispatch<React.SetStateAction<number[]>>) {
+	const response = await fetch('http://localhost:4000/api/gettickets', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ userID, bar }),
+	})
+	const data = await response.json()
+	setCupons(data)
+}
+
