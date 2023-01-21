@@ -36,8 +36,9 @@ const Game = ({ bar }: Props) => {
 		setCode('')
 		console.log('data :>> ', data)
 		setLoading(false)
+		setCupons(data)
 		// setCupons([...cupons, data.number])
-		await getTickets(bar, setCupons)
+		// await getTickets(bar, setCupons)
 	}
 
 	return (
