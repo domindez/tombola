@@ -10,6 +10,7 @@ const UserBar = () => {
 		return (
 			<div className='user-bar'>
 				<img src={user.picture || require('../img/img-placeholder.jpg')} alt={user.name} referrerPolicy='no-referrer' />
+				<h3 className='user-name'>{user.name}</h3>
 			</div>
 		)
 	} else {
