@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import React, { useEffect, useState } from 'react'
 import '../sass/Game.scss'
 import CodeForm from './CodeForm'
@@ -14,6 +15,9 @@ const Game = ({ bar }: Props) => {
 	const [cupons, setCupons] = useState<number[]>([])
 	const [code, setCode] = useState('')
 	const [loading, setLoading] = useState(false)
+
+	const { user, isAuthenticated } = useAuth0()
+
 
 	useEffect(() => {
 		localStorage.getItem('tombola-trivify-ID') ?? localStorage.setItem('tombola-trivify-ID', String(new Date().getTime()))
@@ -43,7 +47,7 @@ const Game = ({ bar }: Props) => {
 
 	return (
 		<div className='game-container'>
-			<CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} />
+			{isAuthenticated && <CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} />}
 			<Loading loading={loading} />
 			<TicketsArea cupons={cupons} />
 		</div>

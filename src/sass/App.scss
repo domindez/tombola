@@ -5,9 +5,18 @@
   padding: 0;
   box-sizing: border-box;
   font-family: variables.$normalFont;
+  
 }
 
 body, html{
   font-size: 18px;
   background-color: variables.$backgroundColor;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
 }

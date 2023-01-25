@@ -1,0 +1,17 @@
+@use 'variables';
+
+.login{
+  background: none;
+  padding: 5px 50px;
+  border-radius: 3px;
+  text-align: center;
+  box-shadow: 2px 2px 0px #00000040;
+  background-color: variables.$primaryColor;
+  font-size: 1.2em;
+  color: variables.$secondaryColor;
+  cursor: pointer;
+
+  &:active{
+    box-shadow: none;
+  }
+}
