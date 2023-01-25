@@ -1,8 +1,11 @@
 @use 'variables';
+@use 'mixins';
 
 .header{
   background-color: variables.$primaryColor;
-  padding-bottom: 20px;
+	@include mixins.centrate();
+  gap: 10px;
+  padding-bottom: 10px;
   font-size: 2em;
   text-shadow: 2px 2px 0px #ffffffc9;
 

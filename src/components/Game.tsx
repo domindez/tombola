@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import React, { useEffect, useState } from 'react'
 import '../sass/Game.scss'
 import CodeForm from './CodeForm'
-import Loading from './Loading'
+import LoginButton from './Login'
 import TicketsArea from './TicketsArea'
 
 interface Props {
@@ -26,6 +26,7 @@ const Game = ({ bar }: Props) => {
 	}, [])
 
 	const sendCode = async (e: React.FormEvent<HTMLFormElement>) => {
+		if (loading) return
 		setLoading(true)
 		e.preventDefault()
 		const response = await fetch('http://localhost:4000/api/newcode', {
@@ -39,16 +40,18 @@ const Game = ({ bar }: Props) => {
 		const data = await response.json()
 		setCode('')
 		console.log('data :>> ', data)
-		setLoading(false)
+		if (data.msg === 'Código incorrecto') {
+			setLoading(false)
+			return
+		}
 		setCupons(data)
-		// setCupons([...cupons, data.number])
-		// await getTickets(bar, setCupons)
 	}
 
 	return (
 		<div className='game-container'>
-			{isAuthenticated && <CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} />}
-			<Loading loading={loading} />
+			<div className='code-area'>
+				{isAuthenticated ? <CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} loading={loading} /> : <LoginButton />}
+			</div>
 			<TicketsArea cupons={cupons} />
 		</div>
 	)

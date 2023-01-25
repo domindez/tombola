@@ -1,11 +1,17 @@
+@use 'variables';
+
 .user-bar{
   padding: 5px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  background-color: variables.$primaryColor ;
 
   img{
-    width: 50px;
+    width: 60px;
     border-radius: 50%;
+    background-color: #f9f9f9;
+    padding: 3px;
+    cursor: pointer;
   }
 }

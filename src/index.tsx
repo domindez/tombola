@@ -8,17 +8,16 @@ import { Auth0Provider } from '@auth0/auth0-react'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-	// <React.StrictMode>
-	<Auth0Provider
-		domain='trivify.uk.auth0.com'
-		clientId='lxHR4UU1972YhdvA2MviRAmroSB18rlS'
-		authorizationParams={{
-			redirect_uri: `${window.location.origin}/tombola/callback`
-		}}>
+	<React.StrictMode>
 		<BrowserRouter basename='/tombola'>
-			<App />
+			<Auth0Provider
+				domain='trivify.uk.auth0.com'
+				clientId='lxHR4UU1972YhdvA2MviRAmroSB18rlS'
+				authorizationParams={{
+					redirect_uri: `${window.location.origin}/tombola/callback`
+				}}>
+				<App />
+			</Auth0Provider>
 		</BrowserRouter>
-	</Auth0Provider>
-
-	// </React.StrictMode>
+	</React.StrictMode>
 )

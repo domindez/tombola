@@ -9,13 +9,13 @@ const UserBar = () => {
 	if (isAuthenticated && user) {
 		return (
 			<div className='user-bar'>
-				<img src={user.picture} alt={user.name} referrerPolicy='no-referrer' />
-				<h2>{user.name}</h2>
-				<p>{user.email}</p>
+				<img src={user.picture || require('../img/img-placeholder.jpg')} alt={user.name} referrerPolicy='no-referrer' />
 			</div>
 		)
 	} else {
-		return <></>
+		return (<div className='user-bar'>
+			<img src={require('../img/img-placeholder.jpg')} alt={'no user image'} referrerPolicy='no-referrer' />
+		</div>)
 	}
 
 }
