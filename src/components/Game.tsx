@@ -9,32 +9,30 @@ interface Props {
 	bar: string
 }
 
-let userID: string | null
-
 const Game = ({ bar }: Props) => {
 	const [cupons, setCupons] = useState<number[]>([])
 	const [code, setCode] = useState('')
 	const [loading, setLoading] = useState(false)
+	const [userData, setUserData] = useState<any>(null)
 
-	const { user, isAuthenticated } = useAuth0()
-
+	const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
 
 	useEffect(() => {
-		localStorage.getItem('tombola-trivify-ID') ?? localStorage.setItem('tombola-trivify-ID', String(new Date().getTime()))
-		userID = localStorage.getItem('tombola-trivify-ID')
-		getTickets(bar, setCupons)
-	}, [])
+		if (user) getTickets()
+	}, [user])
 
 	const sendCode = async (e: React.FormEvent<HTMLFormElement>) => {
 		if (loading) return
 		setLoading(true)
+		const token = await getAccessTokenSilently()
 		e.preventDefault()
 		const response = await fetch('http://localhost:4000/api/newcode', {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ code, bar, userID }),
+			body: JSON.stringify({ code, bar, user }),
 		})
 
 		const data = await response.json()
@@ -45,6 +43,20 @@ const Game = ({ bar }: Props) => {
 			return
 		}
 		setCupons(data)
+	}
+
+	async function getTickets() {
+		const token = await getAccessTokenSilently()
+		const response = await fetch('http://localhost:4000/api/gettickets', {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ user, bar }),
+		})
+		const data = await response.json()
+		console.log(data)
 	}
 
 	return (
@@ -59,15 +71,4 @@ const Game = ({ bar }: Props) => {
 
 export default Game
 
-async function getTickets(bar: string, setCupons: React.Dispatch<React.SetStateAction<number[]>>) {
-	const response = await fetch('http://localhost:4000/api/gettickets', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ userID, bar }),
-	})
-	const data = await response.json()
-	setCupons(data)
-}
 

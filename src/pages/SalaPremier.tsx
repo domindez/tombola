@@ -5,7 +5,6 @@ import LogoutButton from '../components/Logut'
 
 const SalaPremier = () => {
 
-
 	return (
 		<>
 			<Header bar='Sala Premier' />
