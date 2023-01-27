@@ -24,7 +24,12 @@ const Game = ({ bar }: Props) => {
 	const sendCode = async (e: React.FormEvent<HTMLFormElement>) => {
 		if (loading) return
 		setLoading(true)
-		const token = await getAccessTokenSilently()
+		const token = await getAccessTokenSilently({
+			authorizationParams: {
+				audience: 'https://trivify.uk.auth0.com/api/v2/',
+				scope: 'read:current_user',
+			},
+		})
 		e.preventDefault()
 		const response = await fetch('http://localhost:4000/api/newcode', {
 			method: 'POST',
@@ -56,7 +61,7 @@ const Game = ({ bar }: Props) => {
 			body: JSON.stringify({ user, bar }),
 		})
 		const data = await response.json()
-		console.log(data)
+		setCupons(data)
 	}
 
 	return (

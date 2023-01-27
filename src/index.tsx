@@ -16,7 +16,6 @@ root.render(
 			authorizationParams={{
 				redirect_uri: `${window.location.origin}/tombola/callback`,
 				audience: 'https://trivify.uk.auth0.com/api/v2/',
-				scope: 'read:current_user update:current_user_metadata'
 			}}
 		>
 			<App />
