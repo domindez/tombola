@@ -13,7 +13,6 @@ const Game = ({ bar }: Props) => {
 	const [cupons, setCupons] = useState<number[]>([])
 	const [code, setCode] = useState('')
 	const [loading, setLoading] = useState(false)
-	const [userData, setUserData] = useState<any>(null)
 
 	const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
 
@@ -35,16 +34,20 @@ const Game = ({ bar }: Props) => {
 			},
 			body: JSON.stringify({ code, bar, user }),
 		})
-
 		const data = await response.json()
 		setCode('')
-		console.log('data :>> ', data)
-		if (data.msg === 'Código incorrecto') {
+
+		if (data.validCode === false) {
 			setLoading(false)
+			// Aquí poner un estado para que se muestre el mensaje al usuario
+			console.log('El código es incorrecto')
 			return
 		}
+
+		console.log('data :>> ', data)
+		setCupons(data.numbers)
 		setLoading(false)
-		// setCupons(data)
+
 	}
 
 	async function getTickets() {
@@ -58,6 +61,11 @@ const Game = ({ bar }: Props) => {
 			body: JSON.stringify({ user, bar }),
 		})
 		const data = await response.json()
+		if (response.status !== 200) {
+			console.error(data, 'Algo ha ido mal, quizas el token de usuario no sea válido.')
+			return
+		}
+
 		setCupons(data)
 	}
 
