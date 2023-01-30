@@ -12,7 +12,7 @@ const Header = ({ bar }: Props) => {
 			<div className='header'>
 				<h1>
 					Tómbola
-					<span className='header__small'>en {bar}</span>
+					<span className='header__small'>de {bar}</span>
 				</h1>
 				<UserBar />
 			</div>

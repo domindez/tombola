@@ -1,0 +1,86 @@
+@use 'variables';
+@use 'mixins';
+
+.my-cupons-header {
+	display: flex;
+	width: 100%;
+	padding: 10px;
+
+	h3,
+	div {
+		width: 33%;
+		text-align: center;
+		color: variables.$HeaderTextColor;
+	}
+}
+
+.bar-tickets {
+	margin-bottom: 15px;
+	background: rgb(236, 255, 226);
+	background: linear-gradient(
+		90deg,
+		#ecffe2 0%,
+		#ffe2f4 100%
+	);
+	display: flex;
+	box-shadow: 2px 2px 0px #00000030;
+	padding: 10px;
+	border-radius: 5px;
+	width: 100%;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+
+	div {
+		height: 100%;
+		width: 33%;
+		@include mixins.centrate();
+	}
+
+	.bar-name {
+		font-size: 1.5em;
+		line-height: 60px;
+	}
+
+	.n-cupons {
+		font-size: 2em;
+		line-height: 56px;
+		background-color: #60d260;
+		border-radius: 50%;
+		color: white;
+		height: 60px;
+		width: 60px;
+		border: 1px solid #188718;
+	}
+
+	.btn {
+		background-color: variables.$primaryColor;
+		padding: 10px;
+		border: none;
+		height: 50px;
+		width: 50px;
+		border-radius: 5px;
+		font-size: 1.5em;
+		box-shadow: 2px 2px 0px #00000020;
+		cursor: pointer;
+
+		&:active {
+			box-shadow: none;
+		}
+	}
+
+	a{
+		color: black;
+	}
+
+	.grey{
+		background-color: rgb(240, 240, 240);
+		box-shadow: none;
+		border: none;
+	}
+}
+
+.empty-bar{
+	background: white;
+	box-shadow: none;
+}
