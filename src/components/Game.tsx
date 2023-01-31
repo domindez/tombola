@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react'
 import React, { useEffect, useState } from 'react'
 import '../sass/Game.scss'
 import CodeForm from './CodeForm'
@@ -7,25 +6,25 @@ import TicketsArea from './TicketsArea'
 
 interface Props {
 	bar: string
+	user: object
+	isAuthenticated: boolean
+	token: string
 }
 
-const Game = ({ bar }: Props) => {
+const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 	const [cupons, setCupons] = useState<number[]>([])
 	const [code, setCode] = useState('')
 	const [loading, setLoading] = useState(false)
 
-	const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
-
 	useEffect(() => {
-		if (user) getTickets()
-	}, [user])
+		if (user && token) getTickets()
+	}, [user, token])
 
 	const sendCode = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		if (loading) return
 		setLoading(true)
 
-		const token = await getAccessTokenSilently()
 		const response = await fetch('http://localhost:4000/api/newcode', {
 			method: 'POST',
 			headers: {
@@ -44,14 +43,13 @@ const Game = ({ bar }: Props) => {
 			return
 		}
 
-		console.log('data :>> ', data)
 		setCupons(data.numbers)
 		setLoading(false)
 
 	}
 
 	async function getTickets() {
-		const token = await getAccessTokenSilently()
+
 		const response = await fetch('http://localhost:4000/api/gettickets', {
 			method: 'POST',
 			headers: {

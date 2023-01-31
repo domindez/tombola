@@ -6,19 +6,10 @@ import '../sass/BarTickets.scss'
 interface Props {
 	barName: string
 	nCupons: number
+	url: string
 }
 
-const BarTickets = ({ nCupons, barName }: Props) => {
-	type LinkTree = { [key: string]: string }
-
-	// La estructura es -> barName : enlace
-	const linkTree: LinkTree = {
-		'Sala Premier': 'premier',
-		Test: 'test',
-	}
-
-	const barUrl = linkTree[barName]
-
+const BarTickets = ({ nCupons, barName, url }: Props) => {
 	return (
 		<div className={barName? 'bar-tickets' : 'bar-tickets empty-bar'}>
 			<div>
@@ -33,7 +24,7 @@ const BarTickets = ({ nCupons, barName }: Props) => {
 			</div>
 			<div>
 				{barName ? (
-					<a href={`/tombola/${barUrl}`} className='btn'>
+					<a href={`/tombola/${url}`} className='btn'>
 						<FontAwesomeIcon icon={faArrowRightFromBracket} />
 					</a>
 				) : (

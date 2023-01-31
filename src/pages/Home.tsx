@@ -1,22 +1,25 @@
-import { useAuth0 } from '@auth0/auth0-react'
 import React, { useEffect, useState } from 'react'
 import BarTickets from '../components/BarTickets'
 import Header from '../components/Header'
 import LoginButton from '../components/Login'
-import LogoutButton from '../components/Logut'
 import MyCuponsHeader from '../components/MyCuponsHeader'
 
-const Home = () => {
-	const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
+interface Props {
+	user: object
+	isAuthenticated: boolean
+	token: string
+}
 
-	const [data, setData] = useState([{ barName: '', nCupons: 0 }])
+const Home = ({user, isAuthenticated, token} : Props) => {
+	console.log(user)
+	const [data, setData] = useState([{ barName: '', nCupons: 0, url: '' }])
 
 	useEffect(() => {
-		if (user) getAllCupons()
-	}, [user])
+		if (user && token) getAllCupons()
+	}, [user,token])
 
 	const getAllCupons = async () => {
-		const token = await getAccessTokenSilently()
+		console.log('user', user)
 		const response = await fetch('http://localhost:4000/api/getallcodes', {
 			method: 'POST',
 			headers: {
@@ -34,8 +37,7 @@ const Home = () => {
 
 	return (
 		<>
-			<LogoutButton />
-			<Header bar='trivify.es' />
+			<Header bar='trivify.es' user={user} isAuthenticated={isAuthenticated}/>
 			<div className='game-container'>
 				{!isAuthenticated ? (
 					<LoginButton />
@@ -49,6 +51,7 @@ const Home = () => {
 							key={index}
 							barName={item.barName}
 							nCupons={item.nCupons}
+							url={item.url}
 						/>
 					))
 					: [
@@ -57,6 +60,8 @@ const Home = () => {
 								key={index}
 								barName={item.barName}
 								nCupons={item.nCupons}
+								url={item.url}
+
 							/>
 						)),
 						...Array(PLACEHOLDER_NUM - data.length)
@@ -66,6 +71,7 @@ const Home = () => {
 									key={index + data.length}
 									barName=''
 									nCupons={0}
+									url={''}
 								/>
 							)),
 					]}

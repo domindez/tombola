@@ -1,14 +1,16 @@
 import React from 'react'
 import Header from '../components/Header'
-import { useAuth0 } from '@auth0/auth0-react'
 
+interface Props {
+	user: any
+	isAuthenticated: boolean
+}
 
-const Callback = () => {
-	const { user } = useAuth0()
+const Callback = ({user, isAuthenticated} : Props) => {
 
 	return (
 		<>
-			<Header bar='tu bar' />
+			<Header bar='trivify.es' user={user} isAuthenticated={isAuthenticated}/>
 			<div className='game-container'>
 				{user && <h3>Hola {user.name}, te estamos redireccionando al juego.</h3>}
 			</div>

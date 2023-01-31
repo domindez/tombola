@@ -3,12 +3,17 @@ import Game from '../components/Game'
 import Header from '../components/Header'
 import LogoutButton from '../components/Logut'
 
-const SalaPremier = () => {
+interface Props {
+	user: object
+	isAuthenticated: boolean
+	token: string
+}
 
+const SalaPremier = ({user, isAuthenticated, token} : Props) => {
 	return (
 		<>
-			<Header bar='Sala Premier' />
-			<Game bar='Sala Premier' />
+			<Header bar='Sala Premier' user={user} isAuthenticated={isAuthenticated}/>
+			<Game bar='Sala Premier' user={user} isAuthenticated={isAuthenticated} token={token}/>
 			<LogoutButton />
 		</>
 	)

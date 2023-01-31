@@ -5,6 +5,8 @@
 	display: flex;
 	width: 100%;
 	padding: 10px;
+	margin: 10px;
+	font-size: 0.9em;
 
 	h3,
 	div {
@@ -16,16 +18,11 @@
 
 .bar-tickets {
 	margin-bottom: 15px;
-	background: rgb(236, 255, 226);
-	background: linear-gradient(
-		90deg,
-		#ecffe2 0%,
-		#ffe2f4 100%
-	);
+	background-color: rgb(255, 255, 255);
 	display: flex;
-	box-shadow: 2px 2px 0px #00000030;
 	padding: 10px;
-	border-radius: 5px;
+	border-radius: 3px;
+	box-shadow: 0px 0px 3px #1bcc9750;
 	width: 100%;
 	text-align: center;
 	justify-content: center;
@@ -38,30 +35,31 @@
 	}
 
 	.bar-name {
-		font-size: 1.5em;
+		font-size: 1.3em;
 		line-height: 60px;
+		color: variables.$secondaryColor;
 	}
 
 	.n-cupons {
 		font-size: 2em;
 		line-height: 56px;
-		background-color: #60d260;
-		border-radius: 50%;
-		color: white;
+		color: #1bcc97;
 		height: 60px;
 		width: 60px;
-		border: 1px solid #188718;
+		border: 1px dashed rgb(198, 198, 198);
+		border-radius: 50%;
 	}
 
 	.btn {
-		background-color: variables.$primaryColor;
-		padding: 10px;
-		border: none;
-		height: 50px;
-		width: 50px;
-		border-radius: 5px;
+		background-color: #1bcc97;
+		line-height: 55px;
+		height: 55px;
+		width:55px;
 		font-size: 1.5em;
 		box-shadow: 2px 2px 0px #00000020;
+		color: white;
+		border-radius: 50%;
+
 		cursor: pointer;
 
 		&:active {
@@ -69,18 +67,20 @@
 		}
 	}
 
-	a{
+	a {
 		color: black;
 	}
 
-	.grey{
+	.grey {
 		background-color: rgb(240, 240, 240);
 		box-shadow: none;
 		border: none;
+		cursor: default;
 	}
 }
 
-.empty-bar{
-	background: white;
+.empty-bar {
 	box-shadow: none;
+	border: none;
+	background-color: transparent;
 }
