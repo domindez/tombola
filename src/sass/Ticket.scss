@@ -1,6 +1,7 @@
 @use 'mixins';
 
 .ticket {
+	position: relative;
 	@include mixins.centrate();
 	width: 100%;
 	height: 100px;
@@ -18,6 +19,31 @@
 		border-radius: 50%;
 		border: 1px solid black;
 	}
+
+	.bonus-top{
+		color: #d2e9d2;
+		position: absolute;
+		top: 2px;
+	}
+
+	.bonus-right{
+		color: #d2e9d2;
+		position: absolute;
+		margin-left: 70px;
+	}
+
+	.bonus-bottom{
+		color: #d2e9d2;
+		position: absolute;
+		bottom: 2px;
+	}
+
+	.bonus-left{
+		color: #d2e9d2;
+		position: absolute;
+		margin-right: 70px;
+	}
+
 }
 
 .empty-ticket {

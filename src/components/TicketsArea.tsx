@@ -13,11 +13,11 @@ const TicketsArea = ({ cupons }: Props) => {
 		<div className='tickets-area'>
 			{cupons.length >= PLACEHOLDER_NUM
 				? cupons.map((cupon, index) => {
-					return <Ticket key={index} ticketNumber={cupon} />
+					return <Ticket key={index} ticketNumber={cupon} num={index} />
 				})
 				: [...cupons, ...Array(PLACEHOLDER_NUM - cupons.length).fill('')].map(
 					(cupon, index) => {
-						return <Ticket key={index} ticketNumber={cupon} />
+						return <Ticket key={index} ticketNumber={cupon} num={index} />
 					}
 				)}
 		</div>

@@ -33,7 +33,7 @@ const Home = ({user, isAuthenticated, token} : Props) => {
 	}
 
 	console.log('data :>> ', data)
-	const PLACEHOLDER_NUM = 5
+	const PLACEHOLDER_NUM = 7
 
 	return (
 		<>

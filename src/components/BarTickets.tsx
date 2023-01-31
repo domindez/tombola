@@ -11,9 +11,13 @@ interface Props {
 
 const BarTickets = ({ nCupons, barName, url }: Props) => {
 	return (
-		<div className={barName? 'bar-tickets' : 'bar-tickets empty-bar'}>
+		<div className={barName ? 'bar-tickets' : 'bar-tickets empty-bar'}>
 			<div>
-				<h4 className='bar-name'>{barName}</h4>
+				{barName ? (
+					<h4 className='bar-name'>{barName}</h4>
+				) : (
+					<h4 className='bar-name greybox'>{barName}</h4>
+				)}
 			</div>
 			<div>
 				{barName ? (
