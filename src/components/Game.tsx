@@ -82,7 +82,7 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 				{isAuthenticated ? <CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} loading={loading} /> : <LoginButton />}
 			</div>
 			{showInfo && <InfoPopup bar={bar} setShowInfo={()=> setShowInfo(false)} gamePrizes={gameInfo.gamePrizes} gameEndDate={gameInfo.gameEndDate}/>}
-			<GameInfoBar setShowInfo={()=> setShowInfo(true)} gamePrizes={gameInfo.gamePrizes} gameEndDate={gameInfo.gameEndDate}/>
+			<GameInfoBar setShowInfo={()=> setShowInfo(true)} gameEndDate={gameInfo.gameEndDate}/>
 			<TicketsArea cupons={cupons} />
 		</div>
 	)

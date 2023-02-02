@@ -14,7 +14,6 @@ interface Props {
 }
 
 const Games = ({user, isAuthenticated, token, menu, setMenu} : Props) => {
-	console.log(user)
 	const [data, setData] = useState([{ barName: '', nCupons: 0, url: '' }])
 
 	useEffect(() => {
@@ -22,7 +21,6 @@ const Games = ({user, isAuthenticated, token, menu, setMenu} : Props) => {
 	}, [user,token])
 
 	const getAllCupons = async () => {
-		console.log('user', user)
 		const response = await fetch('http://localhost:4000/api/getallcodes', {
 			method: 'POST',
 			headers: {
@@ -35,7 +33,6 @@ const Games = ({user, isAuthenticated, token, menu, setMenu} : Props) => {
 		setData(cuponsData)
 	}
 
-	console.log('data :>> ', data)
 	const PLACEHOLDER_NUM = 7
 
 	return (

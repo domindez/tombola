@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import React, { SetStateAction } from 'react'
 import Header from '../components/Header'
 import LoginButton from '../components/Login'
@@ -13,22 +14,19 @@ interface Props {
 }
 
 const Games = ({user, isAuthenticated, menu, setMenu, token} : Props) => {
+	const { logout } = useAuth0()
 
-	const deleteAccount = async() =>{
+	const deleteAccount = async(id: string) =>{
 		try {
-			const response = await fetch('https://trivify.uk.auth0.com/api/v2/users/lxHR4UU1972YhdvA2MviRAmroSB18rlS', {
+			const response = await fetch(`http://localhost:4000/api/deleteuser/${id}`, {
 				method: 'DELETE',
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
+			const data = await response.json()
+			if (data.succes) logout()
 
-			if (response.status === 204) {
-				// La cuenta del usuario ha sido eliminada correctamente
-				console.log('Cuenta eliminada')
-			} else {
-				throw new Error(await response.text())
-			}
 		} catch (error) {
 			console.error(error)
 		}
@@ -49,7 +47,7 @@ const Games = ({user, isAuthenticated, menu, setMenu, token} : Props) => {
 							<h2>{user.name}</h2>
 							<p>{user.email}</p>
 						</div>
-						<button onClick={deleteAccount} className='btn'>Borrar cuenta</button>
+						<button onClick={()=> deleteAccount(user.sub)} className='btn'>Borrar cuenta</button>
 					</div>
 				)}
 			</div>

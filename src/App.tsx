@@ -45,7 +45,7 @@ function App() {
 			<Routes>
 				<Route path='/games' element={<Games menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 				<Route path='/profile' element={<Profile menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
-				<Route path='/callback' element={<Callback menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} />} />
+				<Route path='/callback' element={<Callback token={token} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} />} />
 				<Route path='/premier' element={<SalaPremier menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 				<Route path='/test' element={<Test menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 			</Routes>

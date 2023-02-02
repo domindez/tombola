@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import '../sass/GameInfoBar.scss'
-import InfoPopup from './InfoPopup'
 
 interface Props {
-	gamePrizes: Array<string>
 	gameEndDate: string
 	setShowInfo: (show: boolean) => void
 }
 
-const GameInfoBar = ({ gamePrizes, gameEndDate, setShowInfo }: Props) => {
+const GameInfoBar = ({ gameEndDate, setShowInfo }: Props) => {
 
 	return (
 		<div className='game-info-bar'>
