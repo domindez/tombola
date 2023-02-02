@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import '../sass/Game.scss'
 import CodeForm from './CodeForm'
+import GameInfoBar from './GameInfoBar'
+import InfoPopup from './InfoPopup'
 import LoginButton from './Login'
 import TicketsArea from './TicketsArea'
 
@@ -11,10 +13,17 @@ interface Props {
 	token: string
 }
 
+interface GameInfo {
+	gamePrizes: Array<string>,
+	gameEndDate: string,
+}
+
 const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 	const [cupons, setCupons] = useState<number[]>([])
 	const [code, setCode] = useState('')
 	const [loading, setLoading] = useState(false)
+	const [gameInfo, setGameInfo] = useState<GameInfo>({gamePrizes: [], gameEndDate: ''})
+	const [showInfo, setShowInfo] = useState(false)
 
 	useEffect(() => {
 		if (user && token) getTickets()
@@ -42,14 +51,11 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 			console.log('El código es incorrecto')
 			return
 		}
-
 		setCupons(data.numbers)
 		setLoading(false)
-
 	}
 
 	async function getTickets() {
-
 		const response = await fetch('http://localhost:4000/api/gettickets', {
 			method: 'POST',
 			headers: {
@@ -63,8 +69,11 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 			console.error(data, 'Algo ha ido mal, quizas el token de usuario no sea válido.')
 			return
 		}
-
-		setCupons(data)
+		setGameInfo({
+			gamePrizes: data.gamePrizes, 
+			gameEndDate: data.gameEndDate
+		})
+		setCupons(data.userNumbers)
 	}
 
 	return (
@@ -72,6 +81,8 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 			<div className='code-area'>
 				{isAuthenticated ? <CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} loading={loading} /> : <LoginButton />}
 			</div>
+			{showInfo && <InfoPopup bar={bar} setShowInfo={()=> setShowInfo(false)} gamePrizes={gameInfo.gamePrizes} gameEndDate={gameInfo.gameEndDate}/>}
+			<GameInfoBar setShowInfo={()=> setShowInfo(true)} gamePrizes={gameInfo.gamePrizes} gameEndDate={gameInfo.gameEndDate}/>
 			<TicketsArea cupons={cupons} />
 		</div>
 	)

@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { SetStateAction, useEffect, useState } from 'react'
 import BarTickets from '../components/BarTickets'
 import Header from '../components/Header'
 import LoginButton from '../components/Login'
 import MyCuponsHeader from '../components/MyCuponsHeader'
+import SideBar from '../components/SideBar'
 
 interface Props {
 	user: object
 	isAuthenticated: boolean
 	token: string
+	menu: boolean
+	setMenu: React.Dispatch<SetStateAction<boolean>>
 }
 
-const Home = ({user, isAuthenticated, token} : Props) => {
+const Games = ({user, isAuthenticated, token, menu, setMenu} : Props) => {
 	console.log(user)
 	const [data, setData] = useState([{ barName: '', nCupons: 0, url: '' }])
 
@@ -37,7 +40,8 @@ const Home = ({user, isAuthenticated, token} : Props) => {
 
 	return (
 		<>
-			<Header bar='trivify.es' user={user} isAuthenticated={isAuthenticated}/>
+			<Header bar='trivify.es' user={user} setMenu={setMenu} isAuthenticated={isAuthenticated}/>
+			<SideBar menu={menu} setMenu={setMenu} user={user} isAuthenticated={isAuthenticated} />
 			<div className='game-container'>
 				{!isAuthenticated ? (
 					<LoginButton />
@@ -80,4 +84,4 @@ const Home = ({user, isAuthenticated, token} : Props) => {
 	)
 }
 
-export default Home
+export default Games

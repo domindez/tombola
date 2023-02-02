@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import SalaPremier from './pages/SalaPremier'
-import Test from './pages/Test'
+import SalaPremier from './pages/bars/SalaPremier'
+import Test from './pages/bars/Test'
 import { Routes, Route } from 'react-router-dom'
 import './sass/App.scss'
-import Home from './pages/Home'
+import Games from './pages/Games'
+import Profile from './pages/Profile'
 import Callback from './pages/Callback'
 import { useAuth0 } from '@auth0/auth0-react'
 import Loading from './components/Loading'
@@ -11,7 +12,8 @@ import Loading from './components/Loading'
 function App() {
 
 	const { user, isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0()
-
+	
+	const [menu, setMenu] = useState(false)
 	const [userData, setUserData] = useState<any>({})
 	const [userAuthenticated, setUserAuthenticated] = useState(false)
 	const [token, setToken] = useState('')
@@ -41,10 +43,11 @@ function App() {
 	return (
 		<div className='App'>
 			<Routes>
-				<Route path='/' element={<Home  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
-				<Route path='/callback' element={<Callback user={userData} isAuthenticated={userAuthenticated} />} />
-				<Route path='/premier' element={<SalaPremier  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
-				<Route path='/test' element={<Test user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
+				<Route path='/games' element={<Games menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
+				<Route path='/profile' element={<Profile menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
+				<Route path='/callback' element={<Callback menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} />} />
+				<Route path='/premier' element={<SalaPremier menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
+				<Route path='/test' element={<Test menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 			</Routes>
 		</div>
 	)
