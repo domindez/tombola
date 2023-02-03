@@ -13,7 +13,6 @@ interface Props {
 const LoginPage = ({setMenu, menu, user, isAuthenticated} : Props) => {
 
 	useEffect(() => {	
-		console.log('user :>> ', user)		
 		if(user.sub)	{
 			console.log(user)
 			window.location.replace('/tombola/games')
