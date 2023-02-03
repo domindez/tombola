@@ -5,17 +5,26 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
 	bar: string
-	user: object
-	isAuthenticated: boolean
 	setMenu: React.Dispatch<SetStateAction<boolean>>
+	isMenu: boolean
 }
 
-
-const Header = ({ bar, user, isAuthenticated, setMenu }: Props) => {
+const Header = ({ bar, setMenu, isMenu }: Props) => {
 	return (
 		<>
 			<div className='header'>
-				<FontAwesomeIcon onClick={() => setMenu(true)} className='menu-btn' icon={faBars}/>
+				{isMenu ? (
+					<FontAwesomeIcon
+						onClick={() => setMenu(true)}
+						className='menu-btn'
+						icon={faBars}
+					/>
+				) : (
+					<FontAwesomeIcon
+						className='menu-btn no-menu'
+						icon={faBars}
+					/>
+				)}
 				<h1>
 					Tómbola
 					<span className='header__small'>de {bar}</span>

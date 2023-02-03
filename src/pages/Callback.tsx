@@ -1,5 +1,5 @@
 import React, { SetStateAction, useEffect } from 'react'
-import Header from '../components/Header'
+import Loading from '../components/Loading'
 import SideBar from '../components/SideBar'
 
 interface Props {
@@ -35,14 +35,10 @@ const Callback = ({user, isAuthenticated,  menu, setMenu, token} : Props) => {
 		}
 	}
 
-
 	return (
 		<>
-			<Header bar='trivify.es' user={user} setMenu={setMenu} isAuthenticated={isAuthenticated}/>
 			<SideBar menu={menu} setMenu={setMenu} user={user} isAuthenticated={isAuthenticated} />
-			<div className='game-container'>
-				{user && <h3>Hola {user.name}, te estamos redireccionando al juego.</h3>}
-			</div>
+			<Loading bar='trivify.es' setMenu={setMenu} msg={'Recuperando usuario...'} />
 		</>
 	)
 }

@@ -83,6 +83,28 @@
 		width: 100px;
 		height: 20px;
 	}
+
+	.no-bar-msg{
+		font-weight: 400;
+		padding: 0px 5px;
+		width: 80%;
+	}
+
+	.qr{
+		margin-left: auto;
+		margin-right: auto;
+		height: 36px;
+		border: solid 2px ;
+		padding: 5px 7px;
+		border-radius: 3px;
+		color: variables.$thirdColor;
+		cursor: pointer;
+		box-shadow: 2px 2px;
+
+		&:active{
+			box-shadow: none;
+		}
+	}
 }
 
 .empty-bar {

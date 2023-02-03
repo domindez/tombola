@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { SetStateAction } from 'react'
+import '../sass/Loading.scss'
+import Header from './Header'
 
-const Loading = () => {
-	return (
+interface Props {
+	bar: string,
+	setMenu: React.Dispatch<SetStateAction<boolean>>
+	msg: string
+}
+
+const Loading = ({bar, setMenu, msg} : Props) => {
+	return (		
 		<>
-			<div className='header loading'>
-				Cargando...	
+			<Header bar={bar} setMenu={setMenu} isMenu={false}/>
+			<div className='loading'>
+				<div className='loader-container'>
+					<div className="loader"></div>
+					{msg}
+				</div>
 			</div>
 		</>
 	)

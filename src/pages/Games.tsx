@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import LoginButton from '../components/Login'
 import MyCuponsHeader from '../components/MyCuponsHeader'
 import SideBar from '../components/SideBar'
+import UserHasNoBar from '../components/UserHasNoBar'
 
 interface Props {
 	user: object
@@ -13,12 +14,12 @@ interface Props {
 	setMenu: React.Dispatch<SetStateAction<boolean>>
 }
 
-const Games = ({user, isAuthenticated, token, menu, setMenu} : Props) => {
+const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 	const [data, setData] = useState([{ barName: '', nCupons: 0, url: '' }])
 
 	useEffect(() => {
 		if (user && token) getAllCupons()
-	}, [user,token])
+	}, [user, token])
 
 	const getAllCupons = async () => {
 		const response = await fetch('http://localhost:4000/api/getallcodes', {
@@ -37,8 +38,13 @@ const Games = ({user, isAuthenticated, token, menu, setMenu} : Props) => {
 
 	return (
 		<>
-			<Header bar='trivify.es' user={user} setMenu={setMenu} isAuthenticated={isAuthenticated}/>
-			<SideBar menu={menu} setMenu={setMenu} user={user} isAuthenticated={isAuthenticated} />
+			<Header bar='trivify.es' setMenu={setMenu} isMenu={true} />
+			<SideBar
+				menu={menu}
+				setMenu={setMenu}
+				user={user}
+				isAuthenticated={isAuthenticated}
+			/>
 			<div className='game-container'>
 				{!isAuthenticated ? (
 					<LoginButton />
@@ -46,6 +52,7 @@ const Games = ({user, isAuthenticated, token, menu, setMenu} : Props) => {
 					<h2 className='page-tittle'>Mis boletos:</h2>
 				)}
 				<MyCuponsHeader />
+				{/* Si hay más bares que el placeholder_num*/}
 				{data.length >= PLACEHOLDER_NUM
 					? data.map((item, index) => (
 						<BarTickets
@@ -55,27 +62,42 @@ const Games = ({user, isAuthenticated, token, menu, setMenu} : Props) => {
 							url={item.url}
 						/>
 					))
-					: [
-						...data.map((item, index) => (
-							<BarTickets
-								key={index}
-								barName={item.barName}
-								nCupons={item.nCupons}
-								url={item.url}
-
-							/>
-						)),
-						...Array(PLACEHOLDER_NUM - data.length)
-							.fill(0)
-							.map((_, index) => (
+					/* Si hay 0 bares */
+					: data.length === 0
+						? [
+							<UserHasNoBar key={-1} />,
+							...Array(PLACEHOLDER_NUM - 1)
+								.fill(0)
+								.map((_, index) => (
+									<BarTickets
+										key={index + data.length}
+										barName=''
+										nCupons={0}
+										url={''}
+									/>
+								)),
+						]
+						/* Si hay menos bares que el placeholder_num */
+						: [
+							...data.map((item, index) => (
 								<BarTickets
-									key={index + data.length}
-									barName=''
-									nCupons={0}
-									url={''}
+									key={index}
+									barName={item.barName}
+									nCupons={item.nCupons}
+									url={item.url}
 								/>
 							)),
-					]}
+							...Array(PLACEHOLDER_NUM - data.length)
+								.fill(0)
+								.map((_, index) => (
+									<BarTickets
+										key={index + data.length}
+										barName=''
+										nCupons={0}
+										url={''}
+									/>
+								)),
+						]}
 			</div>
 		</>
 	)

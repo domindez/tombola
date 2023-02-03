@@ -14,7 +14,7 @@ interface Props {
 const Test = ({user, isAuthenticated, token, menu, setMenu} : Props) => {
 	return (
 		<>
-			<Header bar='Test' user={user} setMenu={setMenu} isAuthenticated={isAuthenticated}/>
+			<Header bar='Test' setMenu={setMenu} isMenu={true} />
 			<SideBar menu={menu} setMenu={setMenu} user={user} isAuthenticated={isAuthenticated} />
 			<Game bar='Test' isAuthenticated={isAuthenticated} token={token} user={user}/>
 		</>

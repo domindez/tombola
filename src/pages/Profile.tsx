@@ -34,7 +34,7 @@ const Games = ({user, isAuthenticated, menu, setMenu, token} : Props) => {
 
 	return (
 		<>
-			<Header bar='trivify.es' user={user} setMenu={setMenu} isAuthenticated={isAuthenticated}/>
+			<Header bar='trivify.es' setMenu={setMenu} isMenu={true} />
 			<SideBar menu={menu} setMenu={setMenu} user={user} isAuthenticated={isAuthenticated} />
 			<div className='game-container'>
 				{!isAuthenticated ? (

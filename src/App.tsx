@@ -8,6 +8,7 @@ import Profile from './pages/Profile'
 import Callback from './pages/Callback'
 import { useAuth0 } from '@auth0/auth0-react'
 import Loading from './components/Loading'
+import LoginPage from './pages/LoginPage'
 
 function App() {
 
@@ -23,26 +24,35 @@ function App() {
 	}
 
 	useEffect(() => {
+		const lastBar = localStorage.getItem('trivify-lastroute')
+		if (window.location.pathname !== '/tombola/callback' &&
+		window.location.pathname !== '/tombola/games' &&
+		window.location.pathname !== '/tombola/profile' &&
+		window.location.pathname !== '/tombola') {
+			localStorage.setItem('trivify-lastroute', window.location.pathname)
+		} 
+
 		if (!user ) return
 		setUserData(user)
 		setUserAuthenticated(isAuthenticated)
 		getToken()
-		const lastRoute = localStorage.getItem('trivify-lastroute')
-		if (window.location.pathname !== '/tombola/callback') {
-			localStorage.setItem('trivify-lastroute', window.location.pathname)
-		} else if (lastRoute) {
-			setTimeout(() => {
-				window.location.replace(lastRoute)
-			}, 2000)
+		
+		if (window.location.pathname === '/tombola/callback' && lastBar) {
+			window.location.replace(lastBar)			
+		}else if (window.location.pathname === '/tombola/callback' && !lastBar) {	
+			window.location.replace('/tombola/games')		
 		}
+
+
 		console.log('se ha vuelto a renderizar')
 	}, [user])
 
-	if (isLoading) return <Loading />
+	if (isLoading) return <Loading bar='trivify.es' setMenu={setMenu} msg={'Cargando...'} />
 
 	return (
 		<div className='App'>
 			<Routes>
+				<Route path='/' element={<LoginPage menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} />} />
 				<Route path='/games' element={<Games menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 				<Route path='/profile' element={<Profile menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 				<Route path='/callback' element={<Callback token={token} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} />} />

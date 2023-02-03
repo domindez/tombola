@@ -14,7 +14,7 @@ interface Props {
 const SalaPremier = ({user, isAuthenticated, token, menu, setMenu} : Props) => {
 	return (
 		<>
-			<Header bar='Sala Premier' user={user} setMenu={setMenu} isAuthenticated={isAuthenticated}/>
+			<Header bar='Sala Premier' setMenu={setMenu} isMenu={true} />
 			<SideBar menu={menu} setMenu={setMenu} user={user} isAuthenticated={isAuthenticated} />
 			<Game bar='Sala Premier' user={user} isAuthenticated={isAuthenticated} token={token}/>
 		</>
