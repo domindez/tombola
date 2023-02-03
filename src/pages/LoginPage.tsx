@@ -12,13 +12,13 @@ interface Props {
 
 const LoginPage = ({setMenu, menu, user, isAuthenticated} : Props) => {
 
-	useEffect(() => {			
+	useEffect(() => {	
+		console.log('user :>> ', user)		
 		if(user.sub)	{
 			console.log(user)
 			window.location.replace('/tombola/games')
 		}
-	},[])
-
+	},[user])
 	return (
 		<>
 			<Header bar='Trivify.es' setMenu={setMenu} isMenu={true}/>
