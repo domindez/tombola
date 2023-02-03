@@ -14,15 +14,16 @@ interface Props {
 }
 
 interface GameInfo {
-	gamePrizes: Array<string>,
-	gameEndDate: string,
+	gameisActive: boolean
+	gamePrizes: Array<string>
+	gameEndDate: string
 }
 
 const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 	const [cupons, setCupons] = useState<number[]>([])
 	const [code, setCode] = useState('')
 	const [loading, setLoading] = useState(false)
-	const [gameInfo, setGameInfo] = useState<GameInfo>({gamePrizes: [], gameEndDate: ''})
+	const [gameInfo, setGameInfo] = useState<GameInfo>({gamePrizes: [], gameEndDate: '', gameisActive: true})
 	const [showInfo, setShowInfo] = useState(false)
 
 	useEffect(() => {
@@ -44,6 +45,12 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 		})
 		const data = await response.json()
 		setCode('')
+
+		console.log('data :>> ', data)
+		if(!data.isActive){
+			console.log('No esta activo')
+			setGameInfo({...gameInfo, gameisActive: false})
+		}
 
 		if (data.validCode === false) {
 			setLoading(false)
@@ -70,16 +77,19 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 			return
 		}
 		setGameInfo({
+			gameisActive: data.isActive,
 			gamePrizes: data.gamePrizes, 
 			gameEndDate: data.gameEndDate
 		})
 		setCupons(data.userNumbers)
 	}
 
+	console.log('gameInfo', gameInfo)
+
 	return (
 		<div className='game-container'>
 			<div className='code-area'>
-				{isAuthenticated ? <CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} loading={loading} /> : <LoginButton />}
+				{!isAuthenticated ? <LoginButton /> : gameInfo.gameisActive && isAuthenticated ? <CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} loading={loading} /> : <h3 className='closed'>El juego está cerrado.</h3>}
 			</div>
 			{showInfo && <InfoPopup bar={bar} setShowInfo={()=> setShowInfo(false)} gamePrizes={gameInfo.gamePrizes} gameEndDate={gameInfo.gameEndDate}/>}
 			<GameInfoBar setShowInfo={()=> setShowInfo(true)} gameEndDate={gameInfo.gameEndDate}/>

@@ -8,6 +8,12 @@
 	align-items: center;
 	height: 40px;
 	margin-top: 5px;
+
+	.closed{
+		background-color: #ffc2c2;
+		padding: 3px 30px;
+		border-radius: 5px;
+	}
 }
 
 form {

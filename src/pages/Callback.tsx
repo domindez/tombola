@@ -15,8 +15,6 @@ const Callback = ({user, isAuthenticated,  menu, setMenu, token} : Props) => {
 		if (user && token) userToBD()
 	}, [user,token])
 
-
-	// CAMBIAR ESTO POR algo que compruebe si la cuenta existe y si no existe crearla
 	const userToBD = async () => {
 		try {			
 			const response = await fetch('http://localhost:4000/api/createuser', {
@@ -29,6 +27,7 @@ const Callback = ({user, isAuthenticated,  menu, setMenu, token} : Props) => {
 			})
 			const data = await response.json()
 			if (data.succes) console.log('Usuario creado en la BD')
+			redirect()
 
 		} catch (error) {
 			console.log(error)
@@ -38,9 +37,16 @@ const Callback = ({user, isAuthenticated,  menu, setMenu, token} : Props) => {
 	return (
 		<>
 			<SideBar menu={menu} setMenu={setMenu} user={user} isAuthenticated={isAuthenticated} />
-			<Loading bar='trivify.es' setMenu={setMenu} msg={'Recuperando usuario...'} />
+			<Loading bar='Trivify.es' setMenu={setMenu} msg={'Recuperando usuario...'} />
 		</>
 	)
+
+	function redirect() {
+		const lastBar = localStorage.getItem('trivify-lastroute')
+		if (lastBar) {
+			window.location.replace(lastBar)
+		} else if (!lastBar) { window.location.replace('/tombola/games')} 
+	}
 }
 
 export default Callback

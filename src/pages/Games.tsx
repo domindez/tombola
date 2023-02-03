@@ -38,7 +38,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 
 	return (
 		<>
-			<Header bar='trivify.es' setMenu={setMenu} isMenu={true} />
+			<Header bar='Trivify.es' setMenu={setMenu} isMenu={true} />
 			<SideBar
 				menu={menu}
 				setMenu={setMenu}
@@ -49,7 +49,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 				{!isAuthenticated ? (
 					<LoginButton />
 				) : (
-					<h2 className='page-tittle'>Mis boletos:</h2>
+					<h2 className='page-tittle'>Mis juegos activos:</h2>
 				)}
 				<MyCuponsHeader />
 				{/* Si hay más bares que el placeholder_num*/}

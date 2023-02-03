@@ -2,6 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import '../sass/GameInfoBar.scss'
+import '../sass/Popup.scss'
 
 interface Props {
 	gameEndDate: string

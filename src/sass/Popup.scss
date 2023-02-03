@@ -1,0 +1,100 @@
+@use 'variables';
+@use 'mixins';
+
+.overlay{
+	@include mixins.centrate();
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #00000050;
+	z-index: 5;
+	height: 100vh;
+	width: 100%;
+
+	.info-popup{
+		@include mixins.centrate();
+		position: relative;
+		background-color: #f0f0f0;
+		width: 300px;
+		height: 500px;
+		z-index: 10;
+		border-radius: 5px;
+		box-shadow: 0px 0px 12px -4px variables.$thirdColor;
+		padding: 20px;
+
+		h3{
+			margin-bottom: 3px;
+		}
+
+		.prize{
+			color: variables.$thirdColor;
+			font-size: 1.1em;
+		}
+
+		p{
+			text-align: justify;
+		}
+
+		.close{
+			position: absolute;
+			top: 12px;
+			right: 15px;
+			background-color: variables.$thirdColor;
+			padding: 7px 10px;
+			border-radius: 3px;
+			cursor: pointer;
+			box-shadow: 2px 2px 0px #00000020;
+
+			&:active{
+				box-shadow: none;
+			}
+		}	
+	}
+
+
+	.popup{
+		@include mixins.centrate();
+		position: relative;
+		background-color: #f0f0f0;
+		width: 300px;
+		height: 300px;
+		z-index: 10;
+		border-radius: 5px;
+		box-shadow: 0px 0px 12px -4px variables.$thirdColor;
+		padding: 20px;
+		gap: 20px;
+		text-align: center;
+
+		.btn-container{
+			display: flex;
+			margin-top: 10px;
+			gap: 10px;
+
+			button{
+				background: none;
+				padding: 10px;
+				color: variables.$secondaryColor;
+				font-size: 1.1em;
+				box-shadow: 2px 2px variables.$secondaryColor;
+				border-radius: 5px;
+				cursor: pointer;
+
+				&:hover{
+					background-color: #ceffeb;
+				}
+
+				&:active{
+					box-shadow: none;
+				}
+
+			}
+
+		}
+	}
+
+	
+
+
+}

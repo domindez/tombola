@@ -24,10 +24,10 @@ function App() {
 	}
 
 	useEffect(() => {
-		const lastBar = localStorage.getItem('trivify-lastroute')
 		if (window.location.pathname !== '/tombola/callback' &&
 		window.location.pathname !== '/tombola/games' &&
 		window.location.pathname !== '/tombola/profile' &&
+		window.location.pathname !== '/tombola/' &&
 		window.location.pathname !== '/tombola') {
 			localStorage.setItem('trivify-lastroute', window.location.pathname)
 		} 
@@ -37,17 +37,10 @@ function App() {
 		setUserAuthenticated(isAuthenticated)
 		getToken()
 		
-		if (window.location.pathname === '/tombola/callback' && lastBar) {
-			window.location.replace(lastBar)			
-		}else if (window.location.pathname === '/tombola/callback' && !lastBar) {	
-			window.location.replace('/tombola/games')		
-		}
-
-
 		console.log('se ha vuelto a renderizar')
 	}, [user])
 
-	if (isLoading) return <Loading bar='trivify.es' setMenu={setMenu} msg={'Cargando...'} />
+	if (isLoading) return <Loading bar='Trivify.es' setMenu={setMenu} msg={'Cargando...'} />
 
 	return (
 		<div className='App'>
