@@ -23,7 +23,7 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 	const [cupons, setCupons] = useState<number[]>([])
 	const [code, setCode] = useState('')
 	const [loading, setLoading] = useState(false)
-	const [gameInfo, setGameInfo] = useState<GameInfo>({gamePrizes: [], gameEndDate: '', gameisActive: true})
+	const [gameInfo, setGameInfo] = useState<GameInfo>({gamePrizes: [], gameEndDate: '', gameisActive: false})
 	const [showInfo, setShowInfo] = useState(false)
 
 	useEffect(() => {
@@ -46,7 +46,6 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 		const data = await response.json()
 		setCode('')
 
-		console.log('data :>> ', data)
 		if(!data.isActive){
 			console.log('No esta activo')
 			setGameInfo({...gameInfo, gameisActive: false})
@@ -61,6 +60,7 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 		setCupons(data.numbers)
 		setLoading(false)
 	}
+	console.log('gameInfo :>> ', gameInfo)
 
 	async function getTickets() {
 		const response = await fetch('http://localhost:4000/api/gettickets', {

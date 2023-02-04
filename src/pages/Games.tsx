@@ -5,6 +5,7 @@ import LoginButton from '../components/Login'
 import MyCuponsHeader from '../components/MyCuponsHeader'
 import SideBar from '../components/SideBar'
 import UserHasNoBar from '../components/UserHasNoBar'
+import WinnerInfo from '../components/WinnerInfo'
 
 interface Props {
 	user: object
@@ -15,14 +16,25 @@ interface Props {
 }
 
 const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
-	const [data, setData] = useState([{ barName: '', nCupons: 0, url: '' }])
+	const [data, setData] = useState([
+		{
+			barName: '',
+			nCupons: 0,
+			url: '',
+			isActive: undefined,
+			winnerNumber: 0,
+			winner: '',
+		},
+	])
+	const [barClicked, setBarClicked] = useState('')
+	const [showWinnerInfo, setShowWinnerInfo] = useState(false)
 
 	useEffect(() => {
 		if (user && token) getAllCupons()
 	}, [user, token])
 
 	const getAllCupons = async () => {
-		const response = await fetch('http://localhost:4000/api/getallcodes', {
+		const response = await fetch('http://localhost:4000/api/getalltickets', {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -36,6 +48,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 
 	const PLACEHOLDER_NUM = 7
 
+	{console.log(barClicked)}
 	return (
 		<>
 			<Header bar='Trivify.es' setMenu={setMenu} isMenu={true} />
@@ -45,6 +58,15 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 				user={user}
 				isAuthenticated={isAuthenticated}
 			/>
+			{showWinnerInfo && (
+				<WinnerInfo
+					setShowWinnerInfo={setShowWinnerInfo}
+					barName={data.find((bar) => bar.barName === barClicked)?.barName}
+					winnerNumber={data.find((bar) => bar.barName === barClicked)?.winnerNumber}
+					winner={data.find((bar) => bar.barName === barClicked)?.winner}
+				/>
+			)}
+
 			<div className='game-container'>
 				{!isAuthenticated ? (
 					<LoginButton />
@@ -60,10 +82,13 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 							barName={item.barName}
 							nCupons={item.nCupons}
 							url={item.url}
+							isActive={item.isActive}
+							setShowWinnerInfo={setShowWinnerInfo}
+							setBarClicked={setBarClicked}
 						/>
 					))
-					/* Si hay 0 bares */
-					: data.length === 0
+					: /* Si hay 0 bares */
+					data.length === 0
 						? [
 							<UserHasNoBar key={-1} />,
 							...Array(PLACEHOLDER_NUM - 1)
@@ -74,17 +99,23 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 										barName=''
 										nCupons={0}
 										url={''}
+										isActive={undefined}
+										setShowWinnerInfo={setShowWinnerInfo}
+										setBarClicked={setBarClicked}
 									/>
 								)),
 						]
-						/* Si hay menos bares que el placeholder_num */
-						: [
+						: /* Si hay menos bares que el placeholder_num */
+						[
 							...data.map((item, index) => (
 								<BarTickets
 									key={index}
 									barName={item.barName}
 									nCupons={item.nCupons}
 									url={item.url}
+									isActive={item.isActive}
+									setShowWinnerInfo={setShowWinnerInfo}
+									setBarClicked={setBarClicked}
 								/>
 							)),
 							...Array(PLACEHOLDER_NUM - data.length)
@@ -95,6 +126,9 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 										barName=''
 										nCupons={0}
 										url={''}
+										isActive={undefined}
+										setShowWinnerInfo={setShowWinnerInfo}
+										setBarClicked={setBarClicked}
 									/>
 								)),
 						]}

@@ -1,4 +1,4 @@
-import React, { SetStateAction, useRef, useEffect } from 'react'
+import React, { SetStateAction } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
 import '../sass/SideBar.scss'

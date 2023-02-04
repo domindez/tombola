@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SetStateAction } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import '../sass/BarTickets.scss'
@@ -7,9 +7,19 @@ interface Props {
 	barName: string
 	nCupons: number
 	url: string
+	isActive: boolean | undefined
+	setShowWinnerInfo: React.Dispatch<SetStateAction<boolean>>
+	setBarClicked: React.Dispatch<SetStateAction<string>>
 }
 
-const BarTickets = ({ nCupons, barName, url }: Props) => {
+const BarTickets = ({
+	nCupons,
+	barName,
+	url,
+	isActive,
+	setShowWinnerInfo,
+	setBarClicked,
+}: Props) => {
 	return (
 		<div className={barName ? 'bar-tickets' : 'bar-tickets empty-bar'}>
 			<div>
@@ -27,10 +37,20 @@ const BarTickets = ({ nCupons, barName, url }: Props) => {
 				)}
 			</div>
 			<div>
-				{barName ? (
+				{isActive ? (
 					<a href={`/tombola/${url}`} className='btn'>
 						<FontAwesomeIcon icon={faArrowRightFromBracket} />
 					</a>
+				) : isActive === false ? (
+					<button
+						className='closed'
+						onClick={() => {
+							setBarClicked(barName)
+							setShowWinnerInfo(true)
+						}}
+					>
+						Ver Ganador
+					</button>
 				) : (
 					<div className='btn grey'></div>
 				)}

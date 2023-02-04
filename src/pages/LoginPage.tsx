@@ -1,10 +1,11 @@
+import { User } from '@auth0/auth0-react'
 import React, { SetStateAction, useEffect } from 'react'
 import Header from '../components/Header'
 import LoginButton from '../components/Login'
 import SideBar from '../components/SideBar'
 
 interface Props {
-	user: any
+	user: User
 	isAuthenticated: boolean
 	menu: boolean
 	setMenu: React.Dispatch<SetStateAction<boolean>>

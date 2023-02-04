@@ -1,4 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0, User } from '@auth0/auth0-react'
 import React, { SetStateAction, useState } from 'react'
 import Header from '../components/Header'
 import LoginButton from '../components/Login'
@@ -7,7 +7,7 @@ import SideBar from '../components/SideBar'
 import '../sass/Profile.scss'
 
 interface Props {
-	user: any
+	user: User
 	isAuthenticated: boolean
 	menu: boolean
 	setMenu: React.Dispatch<SetStateAction<boolean>>
@@ -20,7 +20,9 @@ const Games = ({user, isAuthenticated, menu, setMenu, token} : Props) => {
 
 	const { logout } = useAuth0()
 
-	const deleteAccount = async(id: string) =>{
+
+	const deleteAccount = async(id: string | undefined) =>{
+		if (id === undefined) return		
 		try {
 			const response = await fetch(`http://localhost:4000/api/deleteuser/${id}`, {
 				method: 'DELETE',

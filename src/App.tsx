@@ -6,7 +6,7 @@ import './sass/App.scss'
 import Games from './pages/Games'
 import Profile from './pages/Profile'
 import Callback from './pages/Callback'
-import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0, User } from '@auth0/auth0-react'
 import Loading from './components/Loading'
 import LoginPage from './pages/LoginPage'
 
@@ -15,7 +15,7 @@ function App() {
 	const { user, isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0()
 	
 	const [menu, setMenu] = useState(false)
-	const [userData, setUserData] = useState<any>({})
+	const [userData, setUserData] = useState<User>({})
 	const [userAuthenticated, setUserAuthenticated] = useState(false)
 	const [token, setToken] = useState('')
 

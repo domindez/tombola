@@ -54,7 +54,7 @@
 		background-color: variables.$thirdColor;
 		line-height: 55px;
 		height: 55px;
-		width:55px;
+		width: 55px;
 		font-size: 1.5em;
 		box-shadow: 2px 2px 0px #00000020;
 		color: white;
@@ -71,6 +71,16 @@
 		color: black;
 	}
 
+	.closed {
+		width: 100px;
+		height: 30px;
+		font-size: 1.1em;
+		background-color: variables.$primaryColor;
+		border: dashed black 1px;
+		border-radius: 3px;
+		cursor: pointer;
+	}
+
 	.grey {
 		background-color: #f0f0f0;
 		box-shadow: none;
@@ -78,30 +88,30 @@
 		cursor: default;
 	}
 
-	.greybox{
+	.greybox {
 		background-color: #f0f0f0;
 		width: 100px;
 		height: 20px;
 	}
 
-	.no-bar-msg{
+	.no-bar-msg {
 		font-weight: 400;
 		padding: 0px 5px;
 		width: 80%;
 	}
 
-	.qr{
+	.qr {
 		margin-left: auto;
 		margin-right: auto;
 		height: 36px;
-		border: solid 2px ;
+		border: solid 2px;
 		padding: 5px 7px;
 		border-radius: 3px;
 		color: variables.$thirdColor;
 		cursor: pointer;
 		box-shadow: 2px 2px;
 
-		&:active{
+		&:active {
 			box-shadow: none;
 		}
 	}
