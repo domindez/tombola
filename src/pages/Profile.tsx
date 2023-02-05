@@ -47,7 +47,7 @@ const Games = ({user, isAuthenticated, menu, setMenu, token} : Props) => {
 					<LoginButton />
 				) : (
 					<div className='profile'>
-						{showConfirmation && <Popup tittle='Atencíon'
+						{showConfirmation && <Popup tittle='Atención'
 							text='Estas a punto de borrar tu cuenta y todos tus datos. ¿Quieres continuar?'
 							btnYes='Aceptar'
 							btnNo='Cancelar'

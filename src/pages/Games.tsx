@@ -2,10 +2,10 @@ import React, { SetStateAction, useEffect, useState } from 'react'
 import BarTickets from '../components/BarTickets'
 import Header from '../components/Header'
 import LoginButton from '../components/Login'
-import MyCuponsHeader from '../components/MyCuponsHeader'
+import AllBarHeader from '../components/AllBarHeader'
 import SideBar from '../components/SideBar'
 import UserHasNoBar from '../components/UserHasNoBar'
-import WinnerInfo from '../components/WinnerInfo'
+import WinnerPopup from '../components/WinnerPopup'
 
 interface Props {
 	user: object
@@ -16,18 +16,17 @@ interface Props {
 }
 
 const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
-	const [data, setData] = useState([
-		{
-			barName: '',
-			nCupons: 0,
-			url: '',
-			isActive: undefined,
-			winnerNumber: 0,
-			winner: '',
-		},
-	])
+	const [data, setData] = useState([{
+		barName: '',
+		nCupons: 0,
+		url: '',
+		isActive: undefined,
+		winnerNumber: 0,
+		winner: '',
+	},])
 	const [barClicked, setBarClicked] = useState('')
 	const [showWinnerInfo, setShowWinnerInfo] = useState(false)
+	const PLACEHOLDER_NUM = 7
 
 	useEffect(() => {
 		if (user && token) getAllCupons()
@@ -46,9 +45,6 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 		setData(cuponsData)
 	}
 
-	const PLACEHOLDER_NUM = 7
-
-	{console.log(barClicked)}
 	return (
 		<>
 			<Header bar='Trivify.es' setMenu={setMenu} isMenu={true} />
@@ -59,7 +55,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 				isAuthenticated={isAuthenticated}
 			/>
 			{showWinnerInfo && (
-				<WinnerInfo
+				<WinnerPopup
 					setShowWinnerInfo={setShowWinnerInfo}
 					barName={data.find((bar) => bar.barName === barClicked)?.barName}
 					winnerNumber={data.find((bar) => bar.barName === barClicked)?.winnerNumber}
@@ -73,7 +69,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 				) : (
 					<h2 className='page-tittle'>Mis juegos activos:</h2>
 				)}
-				<MyCuponsHeader />
+				<AllBarHeader />
 				{/* Si hay más bares que el placeholder_num*/}
 				{data.length >= PLACEHOLDER_NUM
 					? data.map((item, index) => (

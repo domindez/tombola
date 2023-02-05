@@ -1,5 +1,5 @@
 import React from 'react'
-import '../sass/GameInfoBar.scss'
+import '../sass/Popup.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 

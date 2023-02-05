@@ -2,9 +2,9 @@ import React from 'react'
 import '../sass/BarTickets.scss'
 
 
-const MyCuponsHeader = () => {
+const AllBarHeader = () => {
 	return (
-		<div className='my-cupons-header'>
+		<div className='all-bar-header'>
 			<h3></h3>
 			<h3>Nº Cupones</h3>
 			<h3>Enlace</h3>
@@ -12,4 +12,4 @@ const MyCuponsHeader = () => {
 	)
 }
 
-export default MyCuponsHeader
+export default AllBarHeader

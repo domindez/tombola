@@ -37,20 +37,6 @@
 			text-align: justify;
 		}
 
-		.close{
-			position: absolute;
-			top: 12px;
-			right: 15px;
-			background-color: variables.$thirdColor;
-			padding: 7px 10px;
-			border-radius: 3px;
-			cursor: pointer;
-			box-shadow: 2px 2px 0px #00000020;
-
-			&:active{
-				box-shadow: none;
-			}
-		}	
 	}
 
 
@@ -90,11 +76,53 @@
 				}
 
 			}
-
 		}
 	}
 
-	
+	.info-winner{
+		color: variables.$secondaryColor;
+		gap: 10px;
+		h2{
+			font-size: 1.3em;
+			margin-bottom: 10px;
+		}
+		
+		h3{
+			font-size: 1.1em;
+		}
 
+		.winner-name{
+			color: purple;
+		}
+	}
+
+	.close{
+		position: absolute;
+		top: 12px;
+		right: 15px;
+		background-color: variables.$thirdColor;
+		padding: 7px 10px;
+		border-radius: 3px;
+		cursor: pointer;
+		box-shadow: 2px 2px 0px #00000020;
+
+		&:active{
+			box-shadow: none;
+		}
+	}	
+
+	.subtext{
+		background-color: #f0f0f0;
+		width: 300px;
+		margin-top: 10px;
+		border-radius: 5px;
+		box-shadow: 0px 0px 12px -4px variables.$thirdColor;
+		padding: 5px;
+		text-align: center;
+
+		a{
+			color: variables.$thirdColor;
+		}
+	}
 
 }
