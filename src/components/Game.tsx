@@ -60,7 +60,6 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 		setCupons(data.numbers)
 		setLoading(false)
 	}
-	console.log('gameInfo :>> ', gameInfo)
 
 	async function getTickets() {
 		const response = await fetch('http://localhost:4000/api/gettickets', {
@@ -83,8 +82,6 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 		})
 		setCupons(data.userNumbers)
 	}
-
-	console.log('gameInfo', gameInfo)
 
 	return (
 		<div className='game-container'>

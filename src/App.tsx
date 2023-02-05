@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import SalaPremier from './pages/bars/SalaPremier'
-import Test from './pages/bars/Test'
 import { Routes, Route } from 'react-router-dom'
 import './sass/App.scss'
 import Games from './pages/Games'
+import BarPage from './pages/BarPage'
 import Profile from './pages/Profile'
 import Callback from './pages/Callback'
 import { useAuth0, User } from '@auth0/auth0-react'
@@ -18,17 +17,31 @@ function App() {
 	const [userAuthenticated, setUserAuthenticated] = useState(false)
 	const [token, setToken] = useState('')
 
+	const [routes, setRoutes] = useState<{barName: string, url: string}[]>([])
+
 	const getToken = async() =>{
 		setToken(await getAccessTokenSilently())
 	}
 
 	useEffect(() => {
 		redirect() 
+		getRoutes()
 		if (!user) return
 		setUserData(user)
 		setUserAuthenticated(isAuthenticated)
 		getToken()
 	}, [user])
+
+	const getRoutes = async () => {
+		const response = await fetch('http://localhost:4000/api/getroutes', {
+			method: 'get',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		})
+		const routes = await response.json()
+		setRoutes(routes)
+	}
 
 	if (isLoading) return <Loading bar='Trivify.es' setMenu={setMenu} msg={'Cargando...'} />
 	return (
@@ -39,8 +52,9 @@ function App() {
 				<Route path='/profile' element={<Profile menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 				<Route path='/winner-tickets' element={<Profile menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 				<Route path='/callback' element={<Callback token={token} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} />} />
-				<Route path='/premier' element={<SalaPremier menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
-				<Route path='/test' element={<Test menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
+				{routes.map((bar, index)=>{
+					return(<Route key={index} path={bar.url} element={<BarPage bar={bar.barName} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} token={token}/>} />)
+				})}
 			</Routes>
 		</div>
 	)
