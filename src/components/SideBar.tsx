@@ -30,7 +30,7 @@ const SideBar = ({ isAuthenticated, user, menu, setMenu }: Props) => {
 				<ul>
 					<li><a href="/tombola/profile">Mi perfil</a></li>
 					<li><a href="/tombola/games">Mis juegos</a></li>
-					<li><a href="#">Mis boletos premiados</a></li>
+					<li><a href="/tombola/winner-tickets">Mis boletos premiados</a></li>
 					<li><a onClick={() => logout()} href="#">Cerrar sesión</a></li>
 					<li className='more-trivify'><a href="https://trivify.es/">Más juegos de Trivify</a></li>
 				</ul>

@@ -8,6 +8,7 @@ import Callback from './pages/Callback'
 import { useAuth0, User } from '@auth0/auth0-react'
 import Loading from './components/Loading'
 import LoginPage from './pages/LoginPage'
+import WinnerTickets from './pages/WinnerTickets'
 
 function App() {
 	const { user, isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0()
@@ -50,7 +51,7 @@ function App() {
 				<Route path='/' element={<LoginPage menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} />} />
 				<Route path='/games' element={<Games menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 				<Route path='/profile' element={<Profile menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
-				<Route path='/winner-tickets' element={<Profile menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
+				<Route path='/winner-tickets' element={<WinnerTickets menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 				<Route path='/callback' element={<Callback token={token} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} />} />
 				{routes.map((bar, index)=>{
 					return(<Route key={index} path={bar.url} element={<BarPage bar={bar.barName} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} token={token}/>} />)
@@ -67,6 +68,7 @@ function redirect() {
 	if (window.location.pathname !== '/tombola/callback' &&
 		window.location.pathname !== '/tombola/games' &&
 		window.location.pathname !== '/tombola/profile' &&
+		window.location.pathname !== '/tombola/winner-tickets' &&
 		window.location.pathname !== '/tombola/' &&
 		window.location.pathname !== '/tombola') {
 		localStorage.setItem('trivify-lastroute', window.location.pathname)
