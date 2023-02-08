@@ -37,6 +37,9 @@
 			text-align: justify;
 		}
 
+		a{
+			color: variables.$thirdColor
+		}
 	}
 
 
@@ -45,7 +48,7 @@
 		position: relative;
 		background-color: #f0f0f0;
 		width: 300px;
-		height: 300px;
+		min-height: 300px;
 		z-index: 10;
 		border-radius: 5px;
 		box-shadow: 0px 0px 12px -4px variables.$thirdColor;
@@ -81,18 +84,44 @@
 
 	.info-winner{
 		color: variables.$secondaryColor;
-		gap: 10px;
 		h2{
 			font-size: 1.3em;
-			margin-bottom: 10px;
 		}
 		
-		h3{
+		.subtittle{
 			font-size: 1.1em;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			gap: 40px;
+
+			.num-tittle{
+				width: 50px;
+			}
+
+			.prize-tittle{
+				width: 100px;
+			}
 		}
 
 		.winner-name{
 			color: purple;
+		}
+
+		.winner-info{
+			@include mixins.centrate();
+			flex-direction: row;
+			justify-content: space-evenly;
+			width: 100%;
+
+			div{
+				width: 50px;
+			}
+
+			.prize{
+				color: purple;
+			}
+
 		}
 	}
 

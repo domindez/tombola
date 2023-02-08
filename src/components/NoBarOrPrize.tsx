@@ -3,7 +3,11 @@ import '../sass/BarTickets.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQrcode } from '@fortawesome/free-solid-svg-icons'
 
-const UserHasNoBar = () => {
+interface Props{
+	onPrizes: boolean
+}
+
+const NoBarOrPrize = ({onPrizes} : Props) => {
 
 	const openQr = () =>{
 		const userAgent = window.navigator.userAgent
@@ -19,10 +23,10 @@ const UserHasNoBar = () => {
 
 	return (
 		<div className='bar-tickets'>
-			<h3 className='no-bar-msg'>Aun no tienes ninguna partida. Escanea un ticket para empezar.</h3>
+			<h3 className='no-bar-msg'>{onPrizes? 'Aun no tienes ningún premio. Cuando consiguas uno aparecerá aquí.' : 'Aun no tienes ninguna partida. Escanea un ticket para empezar.'}</h3>
 			<FontAwesomeIcon onClick={openQr} className='qr' icon={faQrcode} />
 		</div>
 	)
 }
 
-export default UserHasNoBar
+export default NoBarOrPrize

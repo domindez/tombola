@@ -4,7 +4,7 @@ import Header from '../components/Header'
 import LoginButton from '../components/Login'
 import AllBarHeader from '../components/AllBarHeader'
 import SideBar from '../components/SideBar'
-import UserHasNoBar from '../components/UserHasNoBar'
+import NoBarOrPrize from '../components/NoBarOrPrize'
 import WinnerPopup from '../components/WinnerPopup'
 
 interface Props {
@@ -21,9 +21,8 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 		nCupons: 0,
 		url: '',
 		isActive: undefined,
-		winnerNumber: 0,
-		winner: '',
-	},])
+		winnerInfo: []
+	}])
 	const [barClicked, setBarClicked] = useState('')
 	const [showWinnerInfo, setShowWinnerInfo] = useState(false)
 	const PLACEHOLDER_NUM = 7
@@ -43,6 +42,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 		})
 		const cuponsData = await response.json()
 		setData(cuponsData)
+		console.log('cuponsData :>> ', cuponsData)
 	}
 
 	return (
@@ -58,8 +58,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 				<WinnerPopup
 					setShowWinnerInfo={setShowWinnerInfo}
 					barName={data.find((bar) => bar.barName === barClicked)?.barName}
-					winnerNumber={data.find((bar) => bar.barName === barClicked)?.winnerNumber}
-					winner={data.find((bar) => bar.barName === barClicked)?.winner}
+					winnerInfo={data.find((bar) => bar.barName === barClicked)?.winnerInfo || []}
 				/>
 			)}
 
@@ -86,7 +85,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 					: /* Si hay 0 bares */
 					data.length === 0
 						? [
-							<UserHasNoBar key={-1} />,
+							<NoBarOrPrize key={-1} onPrizes={false}/>,
 							...Array(PLACEHOLDER_NUM - 1)
 								.fill(0)
 								.map((_, index) => (

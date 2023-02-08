@@ -27,7 +27,7 @@ const InfoPopup = ({ bar, gamePrizes, gameEndDate, setShowInfo }: Props) => {
 				<p>
 					Consigue un código con tu consumición, cuantos más acumules más
 					posibilidades de ganar. Cuando se realice el sorteo recibirás un cupón
-					canjeable si tienes el número ganador. Consúltalo en tu perfil.
+					canjeable si tienes el número ganador. Consúltalo <a href="/tombola/winner-tickets">aquí.</a>
 				</p>
 				<FontAwesomeIcon onClick={()=> setShowInfo(false)} className='close' icon={faClose} />
 			</div>

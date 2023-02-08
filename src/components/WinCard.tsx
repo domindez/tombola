@@ -7,12 +7,13 @@ interface Props {
 	bar: string
 	date: string
 	winNumber: number
+	prize: string
 }
 
-const WinCard = ({ winCode, bar, date, winNumber}: Props) => {
+const WinCard = ({ winCode, prize, bar, date, winNumber}: Props) => {
 	return (
 		<div className='win-card'>
-			<h3>{bar}</h3>
+			<h3>{bar} - {prize}</h3>
 			<div className='win-card-info'>
 				<div className='left-card'>
 					<div className='ticket__number red winner-num'>{winNumber}</div>
