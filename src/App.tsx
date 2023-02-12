@@ -34,7 +34,7 @@ function App() {
 	}, [user])
 
 	const getRoutes = async () => {
-		const response = await fetch('http://localhost:4000/api/getroutes', {
+		const response = await fetch('https://backend-tombola-production.up.railway.app/api/getroutes', {
 			method: 'get',
 			headers: {
 				'Content-Type': 'application/json',

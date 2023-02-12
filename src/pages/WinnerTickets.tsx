@@ -32,7 +32,7 @@ const WinnerTickets = ({ user, isAuthenticated, token, menu, setMenu }: Props) =
 	}, [user, token])
 
 	const getWinnerCards = async() =>{
-		const response = await fetch(`http://localhost:4000/api/getwinnercards/${user.sub}`, {
+		const response = await fetch(`https://backend-tombola-production.up.railway.app/api/getwinnercards/${user.sub}`, {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${token}`,

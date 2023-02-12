@@ -35,7 +35,7 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 		if (loading) return
 		setLoading(true)
 
-		const response = await fetch('http://localhost:4000/api/newcode', {
+		const response = await fetch('https://backend-tombola-production.up.railway.app/api/newcode', {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 	}
 
 	async function getTickets() {
-		const response = await fetch('http://localhost:4000/api/gettickets', {
+		const response = await fetch('https://backend-tombola-production.up.railway.app/api/gettickets', {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,

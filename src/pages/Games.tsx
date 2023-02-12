@@ -32,7 +32,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 	}, [user, token])
 
 	const getAllCupons = async () => {
-		const response = await fetch('http://localhost:4000/api/getalltickets', {
+		const response = await fetch('https://backend-tombola-production.up.railway.app/api/getalltickets', {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -41,8 +41,8 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 			body: JSON.stringify({ user }),
 		})
 		const cuponsData = await response.json()
-		setData(cuponsData)
 		console.log('cuponsData :>> ', cuponsData)
+		setData(cuponsData)
 	}
 
 	return (

@@ -24,7 +24,7 @@ const Games = ({user, isAuthenticated, menu, setMenu, token} : Props) => {
 	const deleteAccount = async(id: string | undefined) =>{
 		if (id === undefined) return		
 		try {
-			const response = await fetch(`http://localhost:4000/api/deleteuser/${id}`, {
+			const response = await fetch(`https://backend-tombola-production.up.railway.app/api/deleteuser/${id}`, {
 				method: 'DELETE',
 				headers: {
 					Authorization: `Bearer ${token}`,

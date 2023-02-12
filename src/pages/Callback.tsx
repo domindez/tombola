@@ -18,7 +18,7 @@ const Callback = ({user, isAuthenticated,  menu, setMenu, token} : Props) => {
 
 	const userToBD = async () => {
 		try {			
-			const response = await fetch('http://localhost:4000/api/createuser', {
+			const response = await fetch('https://backend-tombola-production.up.railway.app/api/createuser', {
 				method: 'POST',
 				headers: {
 					Authorization: `Bearer ${token}`,
