@@ -69,7 +69,6 @@ const Game = ({ bar, user, isAuthenticated, token, setMenu }: Props) => {
 
 	async function getTickets() {
 		setLoading(true)
-		console.log('object')
 		const response = await fetch('https://backend-tombola-production.up.railway.app/api/gettickets', {
 			method: 'POST',
 			headers: {

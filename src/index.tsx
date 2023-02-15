@@ -4,9 +4,14 @@ import './sass/index.scss'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import { Auth0Provider } from '@auth0/auth0-react'
+import TagManager from 'react-gtm-module'
+
+const tagManagerArgs = {
+	gtmId: 'GTM-KMDVRPL'
+}
+TagManager.initialize(tagManagerArgs)
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
-
 root.render(
 	// <React.StrictMode>
 	<BrowserRouter basename='/tombola'>
