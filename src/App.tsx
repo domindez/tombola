@@ -18,7 +18,6 @@ function App() {
 	
 	const [menu, setMenu] = useState(false)
 	const [userData, setUserData] = useState<User>({})
-	const [userAuthenticated, setUserAuthenticated] = useState(false)
 	const [token, setToken] = useState('')
 
 	const [routes, setRoutes] = useState<{barName: string, url: string}[]>([])
@@ -32,7 +31,6 @@ function App() {
 		getRoutes()
 		if (!user) return
 		setUserData(user)
-		setUserAuthenticated(isAuthenticated)
 		getToken()
 	}, [user])
 
@@ -53,16 +51,16 @@ function App() {
 	return (
 		<div className='App'>
 			<Routes>
-				<Route path='/' element={<LoginPage menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} />} />
-				<Route path='/games' element={<Games menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
-				<Route path='/profile' element={<Profile menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
-				<Route path='/privacy' element={<Privacidad menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} />} />
-				<Route path='/winner-tickets' element={<WinnerTickets menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
-				<Route path='/callback' element={<Callback token={token} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} />} />
+				<Route path='/' element={<LoginPage menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={isAuthenticated} />} />
+				<Route path='/games' element={<Games menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={isAuthenticated} token={token}/>} />
+				<Route path='/profile' element={<Profile menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={isAuthenticated} token={token}/>} />
+				<Route path='/privacy' element={<Privacidad menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={isAuthenticated} />} />
+				<Route path='/winner-tickets' element={<WinnerTickets menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={isAuthenticated} token={token}/>} />
+				<Route path='/callback' element={<Callback token={token} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={isAuthenticated} />} />
 				{routes.map((bar, index)=>{
-					return(<Route key={index} path={bar.url} element={<BarPage bar={bar.barName} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} token={token}/>} />)
+					return(<Route key={index} path={bar.url} element={<BarPage bar={bar.barName} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={isAuthenticated} token={token}/>} />)
 				})}
-				<Route path='*' element={<Page404 menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} />} />
+				<Route path='*' element={<Page404 menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={isAuthenticated} />} />
 			</Routes>
 			{localStorage.getItem('tombola-tfy-cookies') !== 'accepted' &&  <PrivacyAlert />}
 		</div>
