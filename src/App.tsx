@@ -46,7 +46,12 @@ function App() {
 	}
 
 	if (isLoading || routes.length === 0) {
-		return <Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Adivinando el futuro...'} />
+		return (
+			<>
+				<Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Adivinando el futuro...'} />
+				<button onClick={() => logout()}>Log out</button>
+			</>
+		)
 	}
 	return (
 		<div className='App'>
