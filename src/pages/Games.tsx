@@ -48,7 +48,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 		setLoading(false)
 	}
 
-	if (loading) return <Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Pulsando botón rojo...'}/>
+	if (loading) return <Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Pulsando el botón rojo...'}/>
 	return (
 		<>
 			<Header bar='Trivify.es' setMenu={setMenu} isMenu={true} />

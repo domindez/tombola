@@ -48,7 +48,7 @@ function App() {
 	}
 
 	if (isLoading || routes.length === 0) {
-		return <Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Cargando rutas...'} />
+		return <Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Adivinando el futuro...'} />
 	}
 	return (
 		<div className='App'>
