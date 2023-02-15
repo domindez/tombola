@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { SetStateAction, useEffect, useState } from 'react'
 import '../sass/Game.scss'
 import CodeForm from './CodeForm'
 import GameInfoBar from './GameInfoBar'
 import InfoPopup from './InfoPopup'
+import Loading from './Loading'
 import LoginButton from './Login'
 import TicketsArea from './TicketsArea'
 
@@ -11,20 +12,23 @@ interface Props {
 	user: object
 	isAuthenticated: boolean
 	token: string
+	setMenu: React.Dispatch<SetStateAction<boolean>>
 }
 
 interface GameInfo {
 	gameisActive: boolean
-	gamePrizes: Array<string>
+	gamePrizes: Array<{prize: string, code: string}>
 	gameEndDate: string
 }
 
-const Game = ({ bar, user, isAuthenticated, token }: Props) => {
+const Game = ({ bar, user, isAuthenticated, token, setMenu }: Props) => {
+	const [loading, setLoading] = useState(false)
 	const [cupons, setCupons] = useState<number[]>([])
 	const [code, setCode] = useState('')
-	const [loading, setLoading] = useState(false)
+	const [loadingCode, setLoadingCode] = useState(false)
 	const [gameInfo, setGameInfo] = useState<GameInfo>({gamePrizes: [], gameEndDate: '', gameisActive: false})
 	const [showInfo, setShowInfo] = useState(false)
+	const [invalidCode, setInvalidCode] = useState(false)
 
 	useEffect(() => {
 		if (user && token) getTickets()
@@ -32,8 +36,9 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 
 	const sendCode = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		if (loading) return
-		setLoading(true)
+		if (loadingCode) return
+		setLoadingCode(true)
+		setInvalidCode(false)
 
 		const response = await fetch('https://backend-tombola-production.up.railway.app/api/newcode', {
 			method: 'POST',
@@ -52,16 +57,19 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 		}
 
 		if (data.validCode === false) {
-			setLoading(false)
-			// Aquí poner un estado para que se muestre el mensaje al usuario
-			console.log('El código es incorrecto')
+			setLoadingCode(false)
+			setInvalidCode(true)
+			setTimeout(() => {setInvalidCode(false)}, 3000)
 			return
 		}
 		setCupons(data.numbers)
-		setLoading(false)
+		setLoadingCode(false)
 	}
+	const formatDate = gameInfo.gameEndDate ? format(new Date(gameInfo.gameEndDate)) : '?'
 
 	async function getTickets() {
+		setLoading(true)
+		console.log('object')
 		const response = await fetch('https://backend-tombola-production.up.railway.app/api/gettickets', {
 			method: 'POST',
 			headers: {
@@ -81,15 +89,17 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 			gameEndDate: data.gameEndDate
 		})
 		setCupons(data.userNumbers)
+		setLoading(false)
 	}
-
+	if (loading) return <Loading header={false} bar='Trivify.es' setMenu={setMenu} msg={'Llamando al presidente...'}/>
 	return (
-		<div className='game-container'>
+		<div className='game-container width-100'>
 			<div className='code-area'>
-				{!isAuthenticated ? <LoginButton /> : gameInfo.gameisActive && isAuthenticated ? <CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} loading={loading} /> : <h3 className='closed'>El juego está cerrado.</h3>}
+				{!isAuthenticated ? <LoginButton /> : gameInfo.gameisActive && isAuthenticated ? <CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} loading={loadingCode} /> : <h3 className='closed'>El juego está cerrado.</h3>}
 			</div>
-			{showInfo && <InfoPopup bar={bar} setShowInfo={()=> setShowInfo(false)} gamePrizes={gameInfo.gamePrizes} gameEndDate={gameInfo.gameEndDate}/>}
-			<GameInfoBar setShowInfo={()=> setShowInfo(true)} gameEndDate={gameInfo.gameEndDate}/>
+			{showInfo && <InfoPopup bar={bar} setShowInfo={()=> setShowInfo(false)} gamePrizes={gameInfo.gamePrizes} gameEndDate={formatDate}/>}
+			<p className='invalid-code'>{invalidCode && '- Código incorrecto -'}</p>
+			<GameInfoBar setShowInfo={()=> setShowInfo(true)} gameEndDate={formatDate}/>
 			<TicketsArea cupons={cupons} />
 		</div>
 	)
@@ -98,3 +108,20 @@ const Game = ({ bar, user, isAuthenticated, token }: Props) => {
 export default Game
 
 
+const format = (inputDate: Date) => {
+	let date, month
+	const year = inputDate.getFullYear()
+
+	date = inputDate.getDate()
+	month = inputDate.getMonth() + 1
+
+	date = date
+		.toString()
+		.padStart(2, '0')
+
+	month = month
+		.toString()
+		.padStart(2, '0')
+
+	return `${date}-${month}-${year}`
+}

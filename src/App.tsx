@@ -9,6 +9,9 @@ import { useAuth0, User } from '@auth0/auth0-react'
 import Loading from './components/Loading'
 import LoginPage from './pages/LoginPage'
 import WinnerTickets from './pages/WinnerTickets'
+import Privacidad from './pages/Privacidad'
+import PrivacyAlert from './components/PrivacyAlert'
+import Page404 from './pages/Page404'
 
 function App() {
 	const { user, isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0()
@@ -44,19 +47,24 @@ function App() {
 		setRoutes(routes)
 	}
 
-	if (isLoading) return <Loading bar='Trivify.es' setMenu={setMenu} msg={'Cargando...'} />
+	if (isLoading || routes.length === 0) {
+		return <Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Cargando rutas...'} />
+	}
 	return (
 		<div className='App'>
 			<Routes>
 				<Route path='/' element={<LoginPage menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} />} />
 				<Route path='/games' element={<Games menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 				<Route path='/profile' element={<Profile menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
+				<Route path='/privacy' element={<Privacidad menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} />} />
 				<Route path='/winner-tickets' element={<WinnerTickets menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} token={token}/>} />
 				<Route path='/callback' element={<Callback token={token} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} />} />
 				{routes.map((bar, index)=>{
 					return(<Route key={index} path={bar.url} element={<BarPage bar={bar.barName} menu={menu} setMenu={setMenu} user={userData} isAuthenticated={userAuthenticated} token={token}/>} />)
 				})}
+				<Route path='*' element={<Page404 menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={userAuthenticated} />} />
 			</Routes>
+			{localStorage.getItem('tombola-tfy-cookies') !== 'accepted' &&  <PrivacyAlert />}
 		</div>
 	)
 }
@@ -70,6 +78,7 @@ function redirect() {
 		window.location.pathname !== '/tombola/profile' &&
 		window.location.pathname !== '/tombola/winner-tickets' &&
 		window.location.pathname !== '/tombola/' &&
+		window.location.pathname !== '/privacidad/' &&
 		window.location.pathname !== '/tombola') {
 		localStorage.setItem('trivify-lastroute', window.location.pathname)
 	}

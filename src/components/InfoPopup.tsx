@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
-	gamePrizes: Array<string>
+	gamePrizes: Array<{prize: string, code: string}>
 	gameEndDate: string
 	bar: string
 	setShowInfo: (show: boolean) => void
@@ -17,7 +17,7 @@ const InfoPopup = ({ bar, gamePrizes, gameEndDate, setShowInfo }: Props) => {
 			<div className='info-popup'>
 				<h3>Premios:</h3>
 				{gamePrizes.map((prize, index) => {
-					return <p className='prize' key={index}>{`· ${prize} ·`}</p>
+					return <p className='prize' key={index}>{`· ${prize.prize} ·`}</p>
 				})}
 				<br />
 				<h3>Info del sorteo</h3>

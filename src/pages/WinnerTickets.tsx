@@ -6,6 +6,7 @@ import LoginButton from '../components/Login'
 import WinCard from '../components/WinCard'
 import '../sass/WinnerTickets.scss'
 import NoBarOrPrize from '../components/NoBarOrPrize'
+import Loading from '../components/Loading'
 
 interface Props {
 	user: User
@@ -24,7 +25,7 @@ interface WinCard {
 }
 
 const WinnerTickets = ({ user, isAuthenticated, token, menu, setMenu }: Props) =>{
-	
+	const [loading, setLoading] = useState(true)
 	const [data, setData] = useState<WinCard[]>([])
 
 	useEffect(() => {
@@ -41,9 +42,9 @@ const WinnerTickets = ({ user, isAuthenticated, token, menu, setMenu }: Props) =
 		})
 		const data = await response.json()
 		setData(data)
-		console.log(data)
+		setLoading(false)
 	}
-
+	if (loading) return <Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Contactando al presidente...'}/>
 	return(
 		<>
 			<Header bar='Trivify.es' setMenu={setMenu} isMenu={true} />
@@ -55,7 +56,6 @@ const WinnerTickets = ({ user, isAuthenticated, token, menu, setMenu }: Props) =
 					<div className='winner-tickets'>
 						<h2 className='page-tittle'>Mis Premios</h2>
 						{data.length>0 ? data.map((item, index) => {
-							console.log('item :>> ', item)
 							const expDate = stringToDate(item)
 							if (expDate > new Date())
 								return <WinCard 

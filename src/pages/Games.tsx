@@ -6,6 +6,7 @@ import AllBarHeader from '../components/AllBarHeader'
 import SideBar from '../components/SideBar'
 import NoBarOrPrize from '../components/NoBarOrPrize'
 import WinnerPopup from '../components/WinnerPopup'
+import Loading from '../components/Loading'
 
 interface Props {
 	user: object
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
+	const [loading, setLoading] = useState(true)
 	const [data, setData] = useState([{
 		barName: '',
 		nCupons: 0,
@@ -32,6 +34,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 	}, [user, token])
 
 	const getAllCupons = async () => {
+		setLoading(true)
 		const response = await fetch('https://backend-tombola-production.up.railway.app/api/getalltickets', {
 			method: 'POST',
 			headers: {
@@ -43,8 +46,10 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 		const cuponsData = await response.json()
 		console.log('cuponsData :>> ', cuponsData)
 		setData(cuponsData)
+		setLoading(false)
 	}
 
+	if (loading) return <Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Pulsando botón rojo...'}/>
 	return (
 		<>
 			<Header bar='Trivify.es' setMenu={setMenu} isMenu={true} />

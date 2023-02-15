@@ -27,7 +27,7 @@ const Callback = ({user, isAuthenticated,  menu, setMenu, token} : Props) => {
 				body: JSON.stringify({ user }),
 			})
 			const data = await response.json()
-			if (data.succes) console.log('Usuario creado en la BD')
+			if (data.succes) console.log('Usuario creado')
 			redirect()
 
 		} catch (error) {
@@ -38,7 +38,7 @@ const Callback = ({user, isAuthenticated,  menu, setMenu, token} : Props) => {
 	return (
 		<>
 			<SideBar menu={menu} setMenu={setMenu} user={user} isAuthenticated={isAuthenticated} />
-			<Loading bar='Trivify.es' setMenu={setMenu} msg={'Recuperando usuario...'} />
+			<Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Recuperando usuario...'} />
 		</>
 	)
 

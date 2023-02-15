@@ -23,8 +23,35 @@ body, html{
 }
 
 .login-bg{
-  height: 400px;
+  height: calc( 100vh - 138px);
   width: 100%;
-  @include mixins.centrate()
+  @include mixins.centrate();
+  background-color: variables.$primaryColor;
   
+  .login-container{
+    background-color: #ffffff;
+    margin-bottom: 200px;
+    padding: 50px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 0px rgba(255, 255, 255, 0.762);
+    @include mixins.centrate();
+    gap: 20px
+  }
+}
+
+.legal{
+  text-align: justify;
+  padding: 20px;
+
+  h2, h3, h4{
+    text-align: center;
+  }
+
+  p, h3, h2, h4{
+    margin: 10px 0px;
+  }
+}
+
+.width-100{
+  max-width: 100% !important;
 }

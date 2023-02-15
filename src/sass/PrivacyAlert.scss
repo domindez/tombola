@@ -1,0 +1,37 @@
+@use 'mixins';
+@use 'variables';
+
+.privacy-alert{
+	position: fixed;
+	height: 100px;
+	width: 100%;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background-color: antiquewhite;
+	text-align: center;
+	@include mixins.centrate();
+	flex-direction: row;
+	padding: 0px 20px;
+	gap: 10px;
+	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.307);
+
+	a{
+		text-decoration: none;
+	}
+
+	p{
+		font-size: 0.8em;
+	}
+
+	button{
+		padding: 10px;
+		background-color: variables.$primaryColor;
+		border: none;
+		font-size: 1em;
+		color: black;
+		box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.768);
+		border-radius: 3px;
+		cursor: pointer;
+	}
+}

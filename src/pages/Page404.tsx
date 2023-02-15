@@ -11,26 +11,20 @@ interface Props {
 	setMenu: React.Dispatch<SetStateAction<boolean>>
 }
 
-const LoginPage = ({setMenu, menu, user, isAuthenticated} : Props) => {
+const Page404 = ({setMenu, menu, user, isAuthenticated} : Props) => {
 
-	useEffect(() => {	
-		if(user.sub)	{
-			console.log(user)
-			window.location.replace('/tombola/games')
-		}
-	},[user])
+
 	return (
 		<>
 			<Header bar='Trivify.es' setMenu={setMenu} isMenu={true}/>
 			<SideBar menu={menu} setMenu={setMenu} user={user} isAuthenticated={isAuthenticated} />			
-			<div className='login-bg'>
-				<div className='login-container'>
-					<h3>Inicia sesión</h3>
-					<LoginButton />
-				</div>
+			<div className='game-container'>
+				<img className='image-404' src={require('../img/404image.png')} alt='404image' />
+				<p>Aquí no hay nada...</p>
+				<a href='/tombola/games'>Volver</a>
 			</div>
 		</>
 	)
 }
 
-export default LoginPage
+export default Page404

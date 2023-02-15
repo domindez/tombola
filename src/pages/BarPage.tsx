@@ -12,14 +12,14 @@ interface Props {
 	bar: string
 }
 
-const SalaPremier = ({bar, user, isAuthenticated, token, menu, setMenu} : Props) => {
+const BarPage = ({bar, user, isAuthenticated, token, menu, setMenu} : Props) => {
 	return (
 		<div className={`page-${bar.replace(/\s/g, '').toLowerCase()}`}>
 			<Header bar={bar} setMenu={setMenu} isMenu={true} />
 			<SideBar menu={menu} setMenu={setMenu} user={user} isAuthenticated={isAuthenticated} />
-			<Game bar={bar} user={user} isAuthenticated={isAuthenticated} token={token}/>
+			<Game bar={bar} user={user} isAuthenticated={isAuthenticated} token={token} setMenu={setMenu}/>
 		</div>
 	)
 }
 
-export default SalaPremier
+export default BarPage

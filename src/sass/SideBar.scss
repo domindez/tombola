@@ -5,13 +5,13 @@
 	position: fixed;
 	top: 0;
 	bottom: 0;
-	right: 100%;
+	translate: (-320px);
 	z-index: 100;
-	width: 100%;
+	width: 320px;
 	height: 100vh;
-	padding-left: 30%;
+	padding-left: 25px;
 	padding-top: 50px;
-	transition: right 0.5s ease;
+	transition: translate 0.3s ease;
 
 	.close-menu {
 		position: absolute;
@@ -53,12 +53,7 @@
 	}
 
 	.more-trivify {
-		position: absolute;
-		bottom: 20px;
-		right: 40%;
-		left: 40%;
-		width: 200px;
-
+		margin-top: 100px;
 		a {
 			color: variables.$thirdColor;
 			&:hover {
@@ -80,5 +75,5 @@
 
 .active {
 	box-shadow: 2px 0px 5px #00000030;
-	right: 20%;
+	translate: (0px);
 }

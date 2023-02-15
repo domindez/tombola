@@ -10,7 +10,6 @@ interface Props {
 }
 
 const GameInfoBar = ({ gameEndDate, setShowInfo }: Props) => {
-
 	return (
 		<div className='game-info-bar'>
 			<h3>
@@ -21,7 +20,7 @@ const GameInfoBar = ({ gameEndDate, setShowInfo }: Props) => {
 					icon={faQuestion}
 				/>
 			</h3>
-			<h3>Fecha Sorteo: <span className='date'>{gameEndDate}</span></h3>
+			{gameEndDate && <h3>Fecha Sorteo: <span className='date'>{gameEndDate}</span></h3>}
 		</div>
 	)
 }

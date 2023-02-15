@@ -6,12 +6,13 @@ interface Props {
 	bar: string,
 	setMenu: React.Dispatch<SetStateAction<boolean>>
 	msg: string
+	header: boolean
 }
 
-const Loading = ({bar, setMenu, msg} : Props) => {
+const Loading = ({bar, setMenu, msg, header} : Props) => {
 	return (		
 		<>
-			<Header bar={bar} setMenu={setMenu} isMenu={false}/>
+			{header && <Header bar={bar} setMenu={setMenu} isMenu={false}/>}
 			<div className='loading'>
 				<div className='loader-container'>
 					<div className="loader"></div>
