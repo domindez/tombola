@@ -7,6 +7,8 @@ import SideBar from '../components/SideBar'
 import NoBarOrPrize from '../components/NoBarOrPrize'
 import WinnerPopup from '../components/WinnerPopup'
 import Loading from '../components/Loading'
+import API_BASE_URL from '../config'
+
 
 interface Props {
 	user: object
@@ -35,7 +37,7 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 
 	const getAllCupons = async () => {
 		setLoading(true)
-		const response = await fetch('https://backend-tombola-production.up.railway.app/api/getalltickets', {
+		const response = await fetch(`${API_BASE_URL}/api/getalltickets`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,

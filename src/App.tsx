@@ -12,6 +12,7 @@ import WinnerTickets from './pages/WinnerTickets'
 import Privacidad from './pages/Privacidad'
 import PrivacyAlert from './components/PrivacyAlert'
 import Page404 from './pages/Page404'
+import API_BASE_URL from './config'
 
 function App() {
 	const { user, isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0()
@@ -35,7 +36,7 @@ function App() {
 	}, [user])
 
 	const getRoutes = async () => {
-		const response = await fetch('https://backend-tombola-production.up.railway.app/api/getroutes', {
+		const response = await fetch(`${API_BASE_URL}/api/getroutes`, {
 			method: 'get',
 			headers: {
 				'Content-Type': 'application/json',

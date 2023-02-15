@@ -2,6 +2,7 @@ import { User } from '@auth0/auth0-react'
 import React, { SetStateAction, useEffect } from 'react'
 import Loading from '../components/Loading'
 import SideBar from '../components/SideBar'
+import API_BASE_URL from '../config'
 
 interface Props {
 	user: User
@@ -18,7 +19,7 @@ const Callback = ({user, isAuthenticated,  menu, setMenu, token} : Props) => {
 
 	const userToBD = async () => {
 		try {			
-			const response = await fetch('https://backend-tombola-production.up.railway.app/api/createuser', {
+			const response = await fetch(`${API_BASE_URL}/api/createuser`, {
 				method: 'POST',
 				headers: {
 					Authorization: `Bearer ${token}`,

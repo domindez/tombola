@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import LoginButton from '../components/Login'
 import Popup from '../components/Popup'
 import SideBar from '../components/SideBar'
+import API_BASE_URL from '../config'
 import '../sass/Profile.scss'
 
 interface Props {
@@ -24,7 +25,7 @@ const Games = ({user, isAuthenticated, menu, setMenu, token} : Props) => {
 	const deleteAccount = async(id: string | undefined) =>{
 		if (id === undefined) return		
 		try {
-			const response = await fetch(`https://backend-tombola-production.up.railway.app/api/deleteuser/${id}`, {
+			const response = await fetch(`${API_BASE_URL}/api/deleteuser/${id}`, {
 				method: 'DELETE',
 				headers: {
 					Authorization: `Bearer ${token}`,

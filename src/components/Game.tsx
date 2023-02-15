@@ -1,4 +1,5 @@
 import React, { SetStateAction, useEffect, useState } from 'react'
+import API_BASE_URL from '../config'
 import '../sass/Game.scss'
 import CodeForm from './CodeForm'
 import GameInfoBar from './GameInfoBar'
@@ -40,7 +41,7 @@ const Game = ({ bar, user, isAuthenticated, token, setMenu }: Props) => {
 		setLoadingCode(true)
 		setInvalidCode(false)
 
-		const response = await fetch('https://backend-tombola-production.up.railway.app/api/newcode', {
+		const response = await fetch(`${API_BASE_URL}/api/newcode`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -69,7 +70,7 @@ const Game = ({ bar, user, isAuthenticated, token, setMenu }: Props) => {
 
 	async function getTickets() {
 		setLoading(true)
-		const response = await fetch('https://backend-tombola-production.up.railway.app/api/gettickets', {
+		const response = await fetch(`${API_BASE_URL}/api/gettickets`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${token}`,

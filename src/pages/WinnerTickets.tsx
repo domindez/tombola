@@ -7,6 +7,7 @@ import WinCard from '../components/WinCard'
 import '../sass/WinnerTickets.scss'
 import NoBarOrPrize from '../components/NoBarOrPrize'
 import Loading from '../components/Loading'
+import API_BASE_URL from '../config'
 
 interface Props {
 	user: User
@@ -33,7 +34,7 @@ const WinnerTickets = ({ user, isAuthenticated, token, menu, setMenu }: Props) =
 	}, [user, token])
 
 	const getWinnerCards = async() =>{
-		const response = await fetch(`https://backend-tombola-production.up.railway.app/api/getwinnercards/${user.sub}`, {
+		const response = await fetch(`${API_BASE_URL}/api/getwinnercards/${user.sub}`, {
 			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${token}`,
