@@ -14,7 +14,7 @@ import PrivacyAlert from './components/PrivacyAlert'
 import Page404 from './pages/Page404'
 
 function App() {
-	const { user, isAuthenticated, getAccessTokenSilently, isLoading, logout } = useAuth0()
+	const { user, isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0()
 	
 	const [menu, setMenu] = useState(false)
 	const [userData, setUserData] = useState<User>({})
@@ -46,12 +46,7 @@ function App() {
 	}
 
 	if (isLoading || routes.length === 0) {
-		return (
-			<>
-				<Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Adivinando el futuro...'} />
-				<button onClick={() => logout()}>Log out</button>
-			</>
-		)
+		return <Loading header={true} bar='Trivify.es' setMenu={setMenu} msg={'Adivinando el futuro...'} />
 	}
 	return (
 		<div className='App'>
@@ -68,7 +63,6 @@ function App() {
 				<Route path='*' element={<Page404 menu={menu} setMenu={setMenu}  user={userData} isAuthenticated={isAuthenticated} />} />
 			</Routes>
 			{localStorage.getItem('tombola-tfy-cookies') !== 'accepted' &&  <PrivacyAlert />}
-			<button onClick={() => logout()}>Log out</button>
 		</div>
 	)
 }
