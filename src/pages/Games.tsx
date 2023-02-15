@@ -44,7 +44,6 @@ const Games = ({ user, isAuthenticated, token, menu, setMenu }: Props) => {
 			body: JSON.stringify({ user }),
 		})
 		const cuponsData = await response.json()
-		console.log('cuponsData :>> ', cuponsData)
 		setData(cuponsData)
 		setLoading(false)
 	}
