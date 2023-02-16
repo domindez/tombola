@@ -78,7 +78,6 @@ const Game = ({ bar, user, isAuthenticated, token, setMenu }: Props) => {
 			body: JSON.stringify({ user, bar }),
 		})
 		const data = await response.json()
-		console.log('data :>> ', data)
 		if (response.status !== 200) {
 			console.error(data, 'Algo ha ido mal, quizas el token de usuario no sea válido.')
 			return
@@ -91,6 +90,8 @@ const Game = ({ bar, user, isAuthenticated, token, setMenu }: Props) => {
 		setCupons(data.userNumbers)
 		setLoading(false)
 	}
+
+
 	if (loading) return <Loading header={false} bar='Trivify.es' setMenu={setMenu} msg={'Llamando al presidente...'}/>
 	return (
 		<div className='game-container width-100'>

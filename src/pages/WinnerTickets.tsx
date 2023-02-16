@@ -42,6 +42,7 @@ const WinnerTickets = ({ user, isAuthenticated, token, menu, setMenu }: Props) =
 			}
 		})
 		const data = await response.json()
+		console.log('data :>> ', data)
 		setData(data)
 		setLoading(false)
 	}
