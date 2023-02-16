@@ -11,14 +11,12 @@ const NoBarOrPrize = ({onPrizes} : Props) => {
 
 	const openQr = () =>{
 		const userAgent = window.navigator.userAgent
-		const isIOS = userAgent.match(/iPhone|iPad|iPod/i)
+		// const isIOS = userAgent.match(/iPhone|iPad|iPod/i)
 		const isAndroid = userAgent.match(/Android/i)
 
-		if (isIOS) {
-			window.location.href = 'scan://'
-		} else if (isAndroid) {
+		if (isAndroid) {
 			window.location.href = 'zxing://scan/'
-		}
+		} 
 	}
 
 	return (

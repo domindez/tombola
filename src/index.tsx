@@ -22,6 +22,8 @@ root.render(
 				redirect_uri: `${window.location.origin}/tombola/callback`,
 				audience: 'https://trivify.uk.auth0.com/api/v2/',
 			}}
+			useRefreshTokens
+			cacheLocation="localstorage"
 		>
 			<App />
 		</Auth0Provider>

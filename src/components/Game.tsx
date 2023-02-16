@@ -66,7 +66,6 @@ const Game = ({ bar, user, isAuthenticated, token, setMenu }: Props) => {
 		setCupons(data.numbers)
 		setLoadingCode(false)
 	}
-	const formatDate = gameInfo.gameEndDate ? format(new Date(gameInfo.gameEndDate)) : '?'
 
 	async function getTickets() {
 		setLoading(true)
@@ -79,6 +78,7 @@ const Game = ({ bar, user, isAuthenticated, token, setMenu }: Props) => {
 			body: JSON.stringify({ user, bar }),
 		})
 		const data = await response.json()
+		console.log('data :>> ', data)
 		if (response.status !== 200) {
 			console.error(data, 'Algo ha ido mal, quizas el token de usuario no sea válido.')
 			return
@@ -97,9 +97,9 @@ const Game = ({ bar, user, isAuthenticated, token, setMenu }: Props) => {
 			<div className='code-area'>
 				{!isAuthenticated ? <LoginButton /> : gameInfo.gameisActive && isAuthenticated ? <CodeForm sendCode={(e) => sendCode(e)} setCode={setCode} code={code} loading={loadingCode} /> : <h3 className='closed'>El juego está cerrado.</h3>}
 			</div>
-			{showInfo && <InfoPopup bar={bar} setShowInfo={()=> setShowInfo(false)} gamePrizes={gameInfo.gamePrizes} gameEndDate={formatDate}/>}
+			{showInfo && <InfoPopup bar={bar} setShowInfo={()=> setShowInfo(false)} gamePrizes={gameInfo.gamePrizes} gameEndDate={gameInfo.gameEndDate ? gameInfo.gameEndDate : '?'}/>}
 			<p className='invalid-code'>{invalidCode && '- Código incorrecto -'}</p>
-			<GameInfoBar setShowInfo={()=> setShowInfo(true)} gameEndDate={formatDate}/>
+			<GameInfoBar setShowInfo={()=> setShowInfo(true)} gameEndDate={gameInfo.gameEndDate ? gameInfo.gameEndDate : '?'}/>
 			<TicketsArea cupons={cupons} />
 		</div>
 	)
