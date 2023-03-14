@@ -1,4 +1,4 @@
-import React, { SetStateAction } from 'react'
+import React, { SetStateAction, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
 import '../sass/SideBar.scss'
@@ -15,10 +15,21 @@ interface Props {
 const SideBar = ({ isAuthenticated, user, menu, setMenu }: Props) => {
 	const { loginWithRedirect, logout } = useAuth0()
 
+	const menuRef = useRef<HTMLDivElement>(null)
+
+	useEffect(() => {
+		const handleClickOutside = (event: any) => {
+			if (menuRef.current && !menuRef.current.contains(event.target)) setMenu(false)
+		}
+		document.addEventListener('mousedown', handleClickOutside)
+
+		return () => document.removeEventListener('mousedown', handleClickOutside)
+	}, [menuRef])
+
 
 	if (isAuthenticated && user) {
 		return (
-			<div id='side-bar' className={menu ? 'side-bar active' : 'side-bar'}>
+			<div id='side-bar' ref={menuRef} className={menu ? 'side-bar active' : 'side-bar'}>
 				<FontAwesomeIcon onClick={() => setMenu(false)} className='close-menu' icon={faArrowLeftLong}/>
 				<a href='/tombola/games'>
 					<img
