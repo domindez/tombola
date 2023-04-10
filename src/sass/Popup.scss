@@ -85,6 +85,12 @@
 
 	.info-winner{
 		color: variables.$secondaryColor;
+		max-height: 600px;
+		min-height: 400px;
+		overflow-y: scroll;
+		justify-content: start;
+		padding-top: 50px;
+
 		h2{
 			font-size: 1.3em;
 		}
@@ -94,7 +100,7 @@
 			width: 100%;
 			display: flex;
 			justify-content: center;
-			gap: 40px;
+			gap: 60px;
 
 			.num-tittle{
 				width: 50px;
@@ -116,7 +122,7 @@
 			width: 100%;
 
 			div{
-				width: 50px;
+				min-width: 50px;
 			}
 
 			.prize{
